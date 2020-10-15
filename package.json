@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "ENVIRONMENT=development nodemon index.js",
     "start": "node index.js",
-    "build:client": "npm run build --prefix client"
+    "build:client": "npm run build --prefix client",
+    "dev:client": "npm run serve --prefix client"
   },
   "keywords": [],
   "author": "",
