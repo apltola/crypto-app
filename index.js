@@ -8,7 +8,7 @@ app.get('/api/test', (req, res) => {
   );
 });
 
-if (process.env.ENVIRONMENT === 'production') {
+if (process.env.NODE_ENV === 'production') {
   console.log('production!!');
   const dist = path.resolve(__dirname, 'client', 'dist');
   app.use('/', express.static(dist));
