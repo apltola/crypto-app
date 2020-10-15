@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.get('/api/test', (req, res) => {
-  res.send('jeejee crypto app testing testing');
+  res.send(`node.env = ${process.env.NODE_ENV}`);
 });
 
 if (process.env.NODE_ENV === 'production') {
