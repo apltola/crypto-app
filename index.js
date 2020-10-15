@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(dist));
   app.get('*', (req, res) => {
     //res.sendFile(path.resolve(dist, 'index.html'));
-    res.sendFile('testi.html');
+    res.sendFile(path.resolve(__dirname, 'testi.html'));
   });
 }
 
