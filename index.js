@@ -5,11 +5,11 @@ const app = express();
 
 app.get('/api/test', (req, res) => {
   res.send(
-    `node.env = ${process.env.NODE_ENV} | environment = ${process.env.ENVIRONMENT}`
+    `node.env = ${process.env.NODE_ENV} | environment = ${process.env.ENVI}`
   );
 });
 
-if (process.env.ENVIRONMENT === 'production') {
+if (process.env.ENVI === 'production') {
   console.log('production!!');
   const dist = path.resolve(__dirname, 'client', 'dist');
   app.use('/', express.static(dist));
