@@ -23,9 +23,9 @@ if (process.env.ENVI === 'production') {
   const dist = path.resolve(__dirname, 'client', 'dist');
   console.log('dist -> ', dist);
   app.use('/', express.static(dist));
-  app.get('*', (req, res) => {
+  /* app.get('*', (req, res) => {
     res.sendFile(path.resolve(dist, 'index.html'));
-  });
+  }); */
 }
 
 app.listen(3000, () => {
