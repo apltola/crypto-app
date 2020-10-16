@@ -22,9 +22,12 @@ router.post(
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
-    const passwordsMatch = await user.comparePassword(password, user.password);
+    if (!user) {
+      return res.status(400).send({ error: 'incorrect username or password' });
+    }
 
-    if (!user || !passwordsMatch) {
+    const passwordsMatch = await user.comparePassword(password, user.password);
+    if (!passwordsMatch) {
       return res.status(400).send({ error: 'incorrect username or password' });
     }
 
