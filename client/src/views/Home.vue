@@ -6,19 +6,17 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 // @ is an alias to /src
 
 export default {
-  name: 'Home',
+  name: "Home",
 
   components: {},
 
   methods: {
     async test() {
-      console.log('test');
-      const res = await axios.get('/api/test');
-      console.log(res.data);
+      console.log("test");
     },
   },
 };
