@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const history = require('connect-history-api-fallback');
 const { currentUserRouter } = require('./routes/auth/currentUser');
 const { signinRouter } = require('./routes/auth/signin');
 const { signupRouter } = require('./routes/auth/signup');
@@ -9,6 +10,7 @@ const currentUser = require('./middlewares/currentUser');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(history());
 app.set('trust proxy', true);
 
 app.use(

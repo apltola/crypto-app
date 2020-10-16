@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const { app } = require('./app');
 const keys = require('./keys');
+const { app } = require('./app');
 
 const connectToDb = async () => {
   try {
