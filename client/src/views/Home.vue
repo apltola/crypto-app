@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>home page</h1>
+    <button @click="test">api test</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+
+  components: {},
+
+  methods: {
+    async test() {
+      console.log('test');
+      const res = await axios.get('/api/test');
+      console.log(res.data);
+    },
+  },
+};
 </script>
