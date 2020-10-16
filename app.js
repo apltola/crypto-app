@@ -26,7 +26,7 @@ app.use(signoutRouter);
 
 app.get('/api/test', (req, res) => {
   res.send(
-    `hello hello hello node.env = ${process.env.NODE_ENV} | environment = ${process.env.ENVI}`
+    `hello hello node.env = ${process.env.NODE_ENV} | environment = ${process.env.ENVI}`
   );
 });
 
