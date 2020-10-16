@@ -16,7 +16,7 @@ module.exports = function (req, res, next) {
 
     req.currentUser = payload;
   } catch (error) {
-    console.log('jwt verify failed :<');
+    console.log('jwt verify failed');
   }
 
   next();
