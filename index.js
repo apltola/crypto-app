@@ -21,6 +21,7 @@ const connectToDb = async () => {
 if (process.env.ENVI === 'production') {
   console.log('production!!');
   const dist = path.resolve(__dirname, 'client', 'dist');
+  console.log('dist -> ', dist);
   app.use('/', express.static(dist));
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(dist, 'index.html'));
