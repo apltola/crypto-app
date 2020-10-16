@@ -14,7 +14,7 @@ app.set('trust proxy', true);
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.ENVI === 'prouction',
+    secure: process.env.ENVI === 'production',
   })
 );
 
