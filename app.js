@@ -6,6 +6,7 @@ const { signinRouter } = require('./routes/auth/signin');
 const { signupRouter } = require('./routes/auth/signup');
 const { signoutRouter } = require('./routes/auth/signout');
 const currentUser = require('./middlewares/currentUser');
+const cachetest = require('./middlewares/cachetest');
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,6 +19,7 @@ app.use(
   })
 );
 
+app.use(cachetest);
 app.use(currentUser);
 app.use(currentUserRouter);
 app.use(signinRouter);
