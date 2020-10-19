@@ -6,12 +6,22 @@
       </router-link>
     </div>
     <div class="header-right">
-      <router-link to="/auth/signin" class="signin">
-        Sign In
-      </router-link>
-      <router-link to="/auth/register" class="register">
-        Register
-      </router-link>
+      <div v-if="this.$store.state.currentUser">
+        <router-link to="/dashboard" class="dashboard">
+          Go To Dashboard
+        </router-link>
+        <button @click="logout">
+          Logout {{ this.$store.state.currentUser.username }}
+        </button>
+      </div>
+      <div v-else>
+        <router-link to="/auth/signin" class="signin">
+          Sign In
+        </router-link>
+        <router-link to="/auth/register" class="register">
+          Register
+        </router-link>
+      </div>
     </div>
   </header>
 </template>
@@ -19,6 +29,12 @@
 <script>
 export default {
   name: 'Header',
+
+  methods: {
+    async logout() {
+      await this.$store.dispatch('logout');
+    },
+  },
 };
 </script>
 
@@ -44,9 +60,11 @@ export default {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
-.signin {
+.signin,
+.dashboard {
   margin: 0 20px;
 }
 </style>

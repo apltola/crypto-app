@@ -5,17 +5,26 @@
       <router-view />
     </main>
     <footer class="app-footer">
-      this is the footer
+      <div>
+        this is the footer
+      </div>
+      <div>currentUser: {{ this.$store.state.currentUser }}</div>
     </footer>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue';
+import axios from 'axios';
 
 export default {
   components: {
     Header,
+  },
+
+  async created() {
+    console.log('APP_CREATED');
+    await this.$store.dispatch('fetchCurrentUser');
   },
 };
 </script>
