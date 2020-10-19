@@ -25,10 +25,15 @@ export default new Vuex.Store({
         const res = await axios.post('/api/auth/signup', user);
         commit('SET_CURRENTUSER', res.data);
         router.push('/dashboard');
-        return { error: null };
+        return { errors: null };
       } catch (err) {
-        console.log('register failed');
-        return { error: err.response.data.error };
+        if (err.response) {
+          const errors = err.response.data.errors.map((e) => {
+            return e.msg;
+          });
+
+          return { errors };
+        }
       }
     },
 
@@ -37,10 +42,15 @@ export default new Vuex.Store({
         const res = await axios.post('/api/auth/signin', user);
         commit('SET_CURRENTUSER', res.data);
         router.push('/dashboard');
-        return { error: null };
+        return { errors: null };
       } catch (err) {
-        console.log('register failed');
-        return { error: err.response.data.error };
+        if (err.response) {
+          const errors = err.response.data.errors.map((e) => {
+            return e.msg;
+          });
+
+          return { errors };
+        }
       }
     },
 

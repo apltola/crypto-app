@@ -23,12 +23,16 @@ router.post(
 
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).send({ error: 'incorrect username or password' });
+      return res
+        .status(400)
+        .send({ errors: [{ msg: 'incorrect username or password' }] });
     }
 
     const passwordsMatch = await user.comparePassword(password, user.password);
     if (!passwordsMatch) {
-      return res.status(400).send({ error: 'incorrect username or password' });
+      return res
+        .status(400)
+        .send({ errors: [{ msg: 'incorrect username or password' }] });
     }
 
     // generate jwt

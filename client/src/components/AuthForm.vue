@@ -14,17 +14,24 @@
         name="confirmpw"
         v-model="confirmPw"
       />
-      <button type="submit" class="submit">
+      <button
+        type="submit"
+        class="submit"
+        :disabled="username === '' || password === ''"
+        :class="{ disabled: username === '' || password === '' }"
+      >
         Submit
       </button>
-      <div v-if="error" class="error">
-        {{ error }}
+      <div v-if="errors.length > 0" class="error">
+        <div v-for="err in errors" :key="err.msg">
+          {{ err }}
+        </div>
       </div>
-      <div>
+      <!-- <div>
         <div>username {{ JSON.stringify(username, null, 2) }}</div>
         <div>password {{ JSON.stringify(password, null, 2) }}</div>
         <div>confirm {{ JSON.stringify(confirmPw, null, 2) }}</div>
-      </div>
+      </div> -->
     </form>
   </div>
 </template>
@@ -42,15 +49,16 @@ export default {
       username: '',
       password: '',
       confirmPw: '',
-      error: '',
+      errors: [],
     };
   },
 
   methods: {
     async onSubmit(e) {
       e.preventDefault();
+      this.errors = [];
       if (this.authType === 'register' && this.password !== this.confirmPw) {
-        this.error = "passwords don't match";
+        this.errors = ["passwords don't match"];
         return;
       }
 
@@ -62,25 +70,10 @@ export default {
         res = await this.$store.dispatch('signin', user);
       }
 
-      console.log('res.error ', res.error);
-      if (res.error) {
-        this.error = res.error;
+      console.log('res.errors ', res.errors);
+      if (res.errors) {
+        this.errors = res.errors;
       }
-
-      /* const url =
-        this.authType === 'register' ? '/api/auth/signup' : '/api/auth/signin';
-
-      try {
-        const res = await axios.post(url, {
-          username: this.username,
-          password: this.password,
-        });
-        console.log('user -> ', res.data);
-      } catch (error) {
-        if (error.response) {
-          this.error = error.response.data.error;
-        }
-      } */
     },
   },
 };
@@ -93,9 +86,10 @@ export default {
 }
 
 .formi {
+  min-width: 230px;
   border: 1px solid #e1e4e8;
   text-align: left;
-  padding: 20px 30px;
+  padding: 25px 30px 30px 30px;
   border-radius: 6px;
 
   label,
@@ -108,7 +102,7 @@ export default {
   input {
     margin-bottom: 15px;
     padding: 3px 7px;
-    /* width: 100%; */
+    width: calc(100% - 20px);
   }
 
   .submit {
@@ -116,6 +110,7 @@ export default {
   }
 
   .error {
+    padding-top: 10px;
     color: red;
   }
 }

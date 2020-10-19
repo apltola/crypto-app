@@ -4,7 +4,8 @@ module.exports = function (req, res, next) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    res.status(400).send('invalid request parameters');
+    console.log(errors);
+    return res.status(400).send(errors);
   }
 
   next();

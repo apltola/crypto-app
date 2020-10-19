@@ -56,5 +56,9 @@ body {
   button {
     cursor: pointer;
   }
+
+  button.disabled {
+    cursor: not-allowed;
+  }
 }
 </style>
