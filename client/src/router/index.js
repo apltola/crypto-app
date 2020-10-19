@@ -11,6 +11,18 @@ const routes = [
     component: Home,
   },
   {
+    path: '/auth/signin',
+    name: 'AuthForm',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/AuthForm.vue'),
+  },
+  {
+    path: '/auth/register',
+    name: 'AuthForm',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/AuthForm.vue'),
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
