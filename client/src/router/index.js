@@ -12,15 +12,21 @@ const routes = [
   },
   {
     path: '/auth/signin',
-    name: 'AuthForm',
+    name: 'Signin',
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/AuthForm.vue'),
+      import(/* webpackChunkName: "about" */ '../views/Signin.vue'),
+    props: {
+      authType: 'signin',
+    },
   },
   {
     path: '/auth/register',
-    name: 'AuthForm',
+    name: 'Register',
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/AuthForm.vue'),
+      import(/* webpackChunkName: "about" */ '../views/Register.vue'),
+    props: {
+      authType: 'register',
+    },
   },
   {
     path: '/about',
