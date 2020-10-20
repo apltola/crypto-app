@@ -14,7 +14,6 @@ export default {
   name: 'Dashboard',
 
   mounted() {
-    console.log('mounted!!!');
     if (!this.$store.state.currentUser) {
       router.push('/');
     }

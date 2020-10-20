@@ -7,6 +7,8 @@ const { signupRouter } = require('./routes/auth/signup');
 const { signoutRouter } = require('./routes/auth/signout');
 const currentUser = require('./middlewares/currentUser');
 const cachetest = require('./middlewares/cachetest');
+const { indexPortfolioRouter } = require('./routes/portfolio');
+const { createTransactionRouter } = require('./routes/transaction/new');
 
 const app = express();
 app.use(bodyParser.json());
@@ -25,6 +27,9 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
+
+app.use(indexPortfolioRouter);
+app.use(createTransactionRouter);
 
 app.get('/api/test', (req, res) => {
   res.send(

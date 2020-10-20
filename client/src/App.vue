@@ -23,7 +23,6 @@ export default {
   },
 
   async created() {
-    console.log('APP_CREATED');
     await this.$store.dispatch('fetchCurrentUser');
   },
 };

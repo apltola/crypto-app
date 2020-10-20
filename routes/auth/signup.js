@@ -4,6 +4,7 @@ const { body } = require('express-validator');
 const validateRequest = require('../../middlewares/validateRequest');
 const jwt = require('jsonwebtoken');
 const keys = require('../../keys');
+const { Portfolio } = require('../../models/Portfolio');
 
 const router = express.Router();
 
@@ -11,10 +12,9 @@ router.post(
   '/api/auth/signup',
   [
     body('username')
-      .not()
-      .isEmpty()
-      .isString()
-      .withMessage('username must be provided'),
+      .trim()
+      .isLength({ min: 2, max: 20 })
+      .withMessage('Username must be 2 to 20 characters long'),
     body('password')
       .trim()
       .isLength({ min: 4, max: 20 })
@@ -34,6 +34,13 @@ router.post(
       password,
     });
     await user.save();
+
+    // create a main portfolio for new user
+    const portfolio = new Portfolio({
+      userId: user.id,
+      name: 'Main Portfolio',
+    });
+    await portfolio.save();
 
     // generate jwt
     const userJwt = jwt.sign(

@@ -70,7 +70,6 @@ export default {
         res = await this.$store.dispatch('signin', user);
       }
 
-      console.log('res.errors ', res.errors);
       if (res.errors) {
         this.errors = res.errors;
       }
@@ -111,7 +110,7 @@ export default {
 
   .error {
     padding-top: 10px;
-    color: red;
+    color: #fc3d39;
   }
 }
 </style>
