@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <section class="home">
     <h1>home component</h1>
-  </div>
+  </section>
 </template>
 
 <script>

@@ -35,22 +35,35 @@ const transactionSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  date: {
+    type: mongoose.Schema.Types.Date,
+  },
 });
 
-const portfolioSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const portfolioSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    userId: {
+      type: String,
+      required: true,
+    },
+    holdings: [holdingSchema],
+    transactions: [transactionSchema],
   },
-  userId: {
-    type: String,
-    required: true,
-  },
-  holdings: [holdingSchema],
-  transactions: [transactionSchema],
-});
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
+);
 
-portfolioSchema.methods.calculateHoldings = function () {
+portfolioSchema.methods.calculateHoldings = async function () {
   const reducer = (acc, cur, idx, src) => {
     let arr = [];
     if (!Array.isArray(acc)) {
@@ -74,6 +87,7 @@ portfolioSchema.methods.calculateHoldings = function () {
   };
 
   this.set('holdings', this.transactions.reduce(reducer));
+  await this.save();
 };
 
 const Portfolio = mongoose.model('Portfolio', portfolioSchema);

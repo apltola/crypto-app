@@ -40,7 +40,7 @@ export default {
 
 <style scoped>
 .app-header {
-  border: 1px solid black;
+  border: 1.5px solid #e1e4e8;
   display: flex;
   flex-flow: row wrap;
   padding: 20px;

@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
 
   try {
     const payload = jwt.verify(req.session.jwt, keys.JWT_SECRET);
-    console.log('jwt payload -> ', payload);
+    //console.log('jwt payload -> ', payload);
 
     req.currentUser = payload;
   } catch (error) {
