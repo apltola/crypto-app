@@ -13,7 +13,6 @@
 import router from '../router';
 import axios from 'axios';
 import Portfolio from '../components/Portfolio.vue';
-// https://api.coingecko.com/api/v3
 
 export default {
   name: 'Dashboard',

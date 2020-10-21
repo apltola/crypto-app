@@ -1,61 +1,86 @@
 <template>
-  <article>
+  <article class="portfolio">
     <header class="header">
-      <div class="portfolio-title">
-        {{ portfolio.name }}
+      <div class="header-left">
+        <div class="portfolio-title">
+          {{ portfolio.name }}
+        </div>
+        <div class="portfolio-value">
+          {{ getPortfolioValue() }}
+        </div>
       </div>
-      <div class="portfolio-value">
-        {{ getPortfolioValue() }}
+      <div class="header-right">
+        <button @click="handleToggle" class="add-button">
+          {{ view === 'addCrypto' ? 'Cancel' : 'Add Crypto' }}
+        </button>
       </div>
     </header>
-    <section class="portfolio">
-      <div v-if="portfolio.holdings.length === 0" class="empty">
-        No Holdings
-      </div>
-      <div v-else>
-        <div class="row title-row">
-          <div>Coin</div>
-          <div>token price</div>
-          <div>Holdings</div>
+
+    <div class="container">
+      <AddCryptoForm :show="view === 'addCrypto'" />
+      <section class="holdings">
+        <div v-if="portfolio.holdings.length === 0" class="empty">
+          No Holdings
         </div>
-        <div
-          v-for="holding in portfolio.holdings"
-          :key="holding.id"
-          class="row data-row"
-        >
-          <div class="coin">
-            {{ holding.coin }}
+        <div v-else>
+          <div class="row title-row">
+            <div>Coin</div>
+            <div>token price</div>
+            <div>Holdings</div>
           </div>
-          <div class="price">
-            {{ formatPrice(holding) }}
-          </div>
-          <div class="holding">
-            <div>{{ formatHolding(holding) }}</div>
-            <div class="holding-crypto">{{ holding.quantity }}</div>
+          <div
+            v-for="holding in portfolio.holdings"
+            :key="holding.id"
+            class="row data-row"
+          >
+            <div class="coin">
+              {{ holding.coin }}
+            </div>
+            <div class="price">
+              {{ formatPrice(holding) }}
+            </div>
+            <div class="holding">
+              <div>{{ formatHolding(holding) }}</div>
+              <div class="holding-crypto">{{ holding.quantity }}</div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </article>
 </template>
 
 <script>
-import geckoApi from '../api/coinGecko';
 // https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Ctezos&vs_currencies=eur%2Cusd
+import geckoApi from '../api/coinGecko';
+import AddCryptoForm from './AddCryptoForm.vue';
 
 export default {
   name: 'Portfolio',
 
   props: ['portfolio'],
 
+  components: {
+    AddCryptoForm,
+  },
+
   data() {
     return {
+      view: 'holdings',
       currency: 'eur',
       coinPrices: null,
     };
   },
 
   methods: {
+    handleToggle() {
+      if (this.view === 'holdings') {
+        this.view = 'addCrypto';
+      } else {
+        this.view = 'holdings';
+      }
+    },
+
     getPortfolioValue() {
       if (!this.coinPrices) {
         return 'loading...';
@@ -148,13 +173,18 @@ export default {
   width: 85vw;
   max-width: 700px;
   text-align: left;
-  padding: 20px 30px 35px;
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
     0 15px 40px rgba(166, 173, 201, 0.2);
 }
 
+.holdings {
+  padding: 20px 30px 35px;
+}
+
 .header {
+  display: flex;
+  flex-flow: row nowrap;
   text-align: left;
   padding: 20px 30px;
   border-top-left-radius: 10px;
@@ -166,6 +196,32 @@ export default {
     #6e7ff3 100%
   );
   color: #ffffff;
+}
+
+.header-right {
+  flex: 1;
+  text-align: right;
+}
+
+.add-button {
+  box-shadow: none;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  border: 2px solid white;
+  border-radius: 4px;
+  outline: none;
+  transition: 150ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.add-button:hover {
+  background: white;
+  color: black;
+}
+
+.add-button:active {
+  opacity: 0.8;
 }
 
 .portfolio-value {
@@ -219,8 +275,12 @@ export default {
   padding-top: 20px;
 }
 
+.container {
+  position: relative;
+}
+
 @media screen and (max-width: 600px) {
-  .portfolio {
+  .holdings {
     padding: 15px 15px 25px;
   }
 
