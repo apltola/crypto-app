@@ -24,13 +24,17 @@ router.post(
   async (req, res) => {
     const { username, password } = req.body;
 
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({
+      username: username.toLowerCase(),
+    });
     if (existingUser) {
-      return res.status(400).send('username already in use!');
+      return res
+        .status(400)
+        .send({ errors: [{ msg: 'Username already in use!' }] });
     }
 
     const user = new User({
-      username,
+      username: username.toLowerCase(),
       password,
     });
     await user.save();

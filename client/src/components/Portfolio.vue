@@ -52,14 +52,13 @@ export default {
     return {
       currency: 'eur',
       coinPrices: null,
-      portfolioValue: 0,
     };
   },
 
   methods: {
     getPortfolioValue() {
       if (!this.coinPrices) {
-        return '';
+        return 'loading...';
       }
 
       let sum = 0;
@@ -170,7 +169,7 @@ export default {
 }
 
 .portfolio-value {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
 }
 
@@ -209,6 +208,7 @@ export default {
 }
 
 .empty {
+  padding-top: 10px;
   text-align: center;
   font-size: 18px;
   font-weight: 600;
@@ -222,6 +222,10 @@ export default {
 @media screen and (max-width: 600px) {
   .portfolio {
     padding: 15px 15px 25px;
+  }
+
+  .header {
+    padding: 20px 15px;
   }
 }
 </style>

@@ -8,7 +8,6 @@
       <div>
         this is the footer
       </div>
-      <div>currentUser: {{ this.$store.state.currentUser }}</div>
     </footer>
   </div>
 </template>
@@ -48,8 +47,9 @@ body {
   }
 
   .app-footer {
+    border: 1.5px solid #e1e4e8;
     margin-top: 80px;
-    background: #f5f8ff;
+    /* background: #f5f8ff; */
     padding: 20px;
   }
 
