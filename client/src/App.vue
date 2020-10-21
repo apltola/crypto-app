@@ -48,6 +48,7 @@ body {
   }
 
   .app-footer {
+    margin-top: 80px;
     background: #f5f8ff;
     padding: 20px;
   }

@@ -5,13 +5,14 @@ const { Portfolio } = require('../../models/Portfolio');
 const router = express.Router();
 
 router.post('/api/transaction', requireAuth, async (req, res) => {
-  console.log('req.body -> ', req.body);
+  //console.log('req.body -> ', req.body);
   const {
     portfolioId,
     type,
     coin,
     quantity,
     boughtWith,
+    soldWith,
     pricePerCoin,
     date,
   } = req.body;
@@ -27,9 +28,10 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
       {
         type,
         coin,
-        quantity: quantity > 0 ? quantity.toFixed(8) : -quantity.toFixed(8),
+        quantity: boughtWith ? quantity : -quantity,
         //quantity: quantity > 0 ? quantity : -quantity,
         boughtWith,
+        soldWith,
         pricePerCoin,
         date: date,
       },

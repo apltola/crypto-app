@@ -1,8 +1,10 @@
 <template>
   <section>
-    <h1>dashboard</h1>
+    <h1>Your portfolios</h1>
     <div class="grid">
-      <Portfolio v-for="pf in portfolios" :key="pf.id" :portfolio="pf" />
+      <transition-group name="list">
+        <Portfolio v-for="pf in portfolios" :key="pf.id" :portfolio="pf" />
+      </transition-group>
     </div>
   </section>
 </template>
@@ -49,5 +51,16 @@ export default {
   flex-flow: column nowrap;
   align-items: center;
   padding: 20px;
+  overflow: visible;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 400ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>
