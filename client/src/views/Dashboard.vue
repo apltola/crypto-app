@@ -34,9 +34,13 @@ export default {
 
   methods: {
     async updatePortfolio(portfolio) {
-      const res = await axios.get("/api/portfolio");
+      const newArr = [...this.portfolios];
+      const i = newArr.findIndex((p) => p.id === portfolio.id);
+      newArr[i] = portfolio;
+      this.portfolios = newArr;
+      /* const res = await axios.get("/api/portfolio");
       console.log("portfolio -> ", res.data);
-      this.portfolios = res.data;
+      this.portfolios = res.data; */
     },
   },
 
@@ -51,11 +55,6 @@ export default {
       //fetch portfolios for user
       const res = await axios.get("/api/portfolio");
       this.portfolios = res.data;
-      /* console.log(
-        "user portfolios ->",
-        this.$store.state.currentUser.portfolios
-      );
-      this.portfolios = this.$store.state.currentUser.portfolios; */
     }
   },
 };

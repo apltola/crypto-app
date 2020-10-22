@@ -5,7 +5,13 @@
       <router-view />
     </main>
     <footer class="app-footer">
-      <div>this is the footer</div>
+      <TestiComponentVue
+        v-for="t in testiArr"
+        :key="t"
+        :msg="t"
+        v-on:test-emit="juukeli"
+      />
+      <!-- <div>this is the footer</div> -->
       <!-- <div>
         {{ JSON.stringify(this.$store.state.currentUser) }}
       </div> -->
@@ -16,10 +22,30 @@
 <script>
 import Header from "./components/Header.vue";
 import axios from "axios";
+import TestiComponentVue from "./components/TestiComponent.vue";
 
 export default {
   components: {
     Header,
+    TestiComponentVue,
+  },
+
+  data() {
+    return {
+      testiArr: ["jee", "juu", "jaa"],
+    };
+  },
+
+  methods: {
+    juukeli(msg) {
+      console.log(msg);
+      const a = [...this.testiArr];
+      a[0] = msg;
+      this.testiArr = a;
+
+      //this.testiArr[0] = "hehe";
+      //this.testiArr = ["mjoo", "terve", "moro"];
+    },
   },
 
   async created() {

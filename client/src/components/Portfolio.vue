@@ -20,7 +20,7 @@
       <AddCryptoForm
         :show="view === 'addCrypto'"
         :portfolioName="portfolio.name"
-        v-on:add-crypto="addCrypto"
+        v-on:add-holding="addHolding"
       />
       <div class="holdings">
         <div v-if="portfolio.holdings.length === 0" class="empty">
@@ -78,7 +78,7 @@ export default {
   },
 
   methods: {
-    async addCrypto(cryptoName) {
+    async addHolding(cryptoName) {
       console.log(cryptoName);
       const res = await axios.post(
         `/api/portfolio/${this.portfolio.id}/holding`,

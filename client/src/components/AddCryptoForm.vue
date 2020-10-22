@@ -41,7 +41,7 @@ export default {
 
   methods: {
     addHolding() {
-      this.$emit("add-crypto", this.result.id);
+      this.$emit("add-holding", this.result.id);
       this.clearSearch();
     },
 
