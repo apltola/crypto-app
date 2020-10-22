@@ -25,7 +25,7 @@ router.post(
     const { username, password } = req.body;
 
     const existingUser = await User.findOne({
-      username: username.toLowerCase(),
+      usernameLowerCase: username.toLowerCase(),
     });
     if (existingUser) {
       return res
@@ -34,7 +34,8 @@ router.post(
     }
 
     const user = new User({
-      username: username.toLowerCase(),
+      username,
+      usernameLowerCase: username.toLowerCase(),
       password,
     });
     await user.save();

@@ -11,14 +11,17 @@
       </div>
       <div class="header-right">
         <button @click="handleToggle" class="add-button">
-          {{ view === 'addCrypto' ? 'Cancel' : 'Add Crypto' }}
+          {{ view === 'addCrypto' ? 'View Portfolio' : 'Add Crypto' }}
         </button>
       </div>
     </header>
 
-    <div class="container">
-      <AddCryptoForm :show="view === 'addCrypto'" />
-      <section class="holdings">
+    <section class="container">
+      <AddCryptoForm
+        :show="view === 'addCrypto'"
+        :portfolioName="portfolio.name"
+      />
+      <div class="holdings">
         <div v-if="portfolio.holdings.length === 0" class="empty">
           No Holdings
         </div>
@@ -45,8 +48,8 @@
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </article>
 </template>
 
@@ -161,7 +164,6 @@ export default {
 
     const url = `/simple/price?ids=${coins}&vs_currencies=${this.currency}`;
     const res = await geckoApi.get(url);
-    console.log('res -> ', res.data);
     this.coinPrices = res.data;
   },
 };
@@ -170,7 +172,7 @@ export default {
 <style scoped>
 .portfolio {
   margin: 0;
-  width: 85vw;
+  width: 95vw;
   max-width: 700px;
   text-align: left;
   border-radius: 10px;
@@ -280,12 +282,21 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
+  .add-button:hover {
+    background: transparent;
+    color: white;
+  }
+
   .holdings {
     padding: 15px 15px 25px;
   }
 
   .header {
     padding: 20px 15px;
+  }
+
+  .coin {
+    font-size: 12px;
   }
 }
 </style>

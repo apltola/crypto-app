@@ -55,7 +55,7 @@ export default {
 
 .list-enter-active,
 .list-leave-active {
-  transition: all 400ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  transition: all 250ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 .list-enter,
 .list-leave-to {

@@ -2,7 +2,12 @@
   <div class="container">
     <form @submit="onSubmit" class="formi">
       <label for="username">Username</label>
-      <input type="text" name="username" v-model="username" />
+      <input
+        type="text"
+        name="username"
+        v-model="username"
+        ref="usernameInput"
+      />
       <label for="password">Password</label>
       <input type="password" name="password" v-model="password" />
       <label v-if="authType === 'register'" for="confirmpw"
@@ -74,6 +79,14 @@ export default {
         this.errors = res.errors;
       }
     },
+  },
+
+  mounted() {
+    this.$refs.usernameInput.focus();
+  },
+
+  destroyed() {
+    this.$refs.usernameInput.blur();
   },
 };
 </script>

@@ -21,7 +21,9 @@ router.post(
   async (req, res) => {
     const { username, password } = req.body;
 
-    const user = await User.findOne({ username: username.toLowerCase() });
+    const user = await User.findOne({
+      usernameLowerCase: username.toLowerCase(),
+    });
     if (!user) {
       return res
         .status(400)

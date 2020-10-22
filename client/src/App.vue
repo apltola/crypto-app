@@ -60,6 +60,12 @@ body {
   button.disabled {
     cursor: not-allowed;
   }
+
+  button.btn-reset {
+    box-shadow: none;
+    border: none;
+    background: none;
+  }
 }
 
 /* const iosColors = {

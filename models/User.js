@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { randomBytes, scrypt } = require('crypto');
 const { promisify } = require('util');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const scryptAsync = promisify(scrypt);
 
@@ -9,6 +10,13 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
+      unique: true,
+    },
+    usernameLowerCase: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
