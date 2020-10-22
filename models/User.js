@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    portfolios: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Portfolio' }],
   },
   {
     toJSON: {

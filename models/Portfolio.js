@@ -47,11 +47,11 @@ const transactionSchema = new mongoose.Schema({
 
 const portfolioSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
     userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      //ref: 'User',
+    },
+    name: {
       type: String,
       required: true,
     },

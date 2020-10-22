@@ -1,6 +1,6 @@
 <template>
   <section class="home">
-    <h1>home component</h1>
+    <h1>home page</h1>
   </section>
 </template>
 
@@ -8,7 +8,7 @@
 // @ is an alias to /src
 
 export default {
-  name: 'Home',
+  name: "Home",
 
   components: {},
 };

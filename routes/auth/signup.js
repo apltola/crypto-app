@@ -37,8 +37,8 @@ router.post(
       username,
       usernameLowerCase: username.toLowerCase(),
       password,
+      portfolios: [],
     });
-    await user.save();
 
     // create a main portfolio for new user
     const portfolio = new Portfolio({
@@ -46,6 +46,9 @@ router.post(
       name: 'Main Portfolio',
     });
     await portfolio.save();
+
+    user.portfolios = [portfolio.id];
+    await user.save();
 
     // generate jwt
     const userJwt = jwt.sign(

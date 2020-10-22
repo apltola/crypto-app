@@ -1,14 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const currentUser = require('./middlewares/currentUser');
+const cachetest = require('./middlewares/cachetest');
 const { currentUserRouter } = require('./routes/auth/currentUser');
 const { signinRouter } = require('./routes/auth/signin');
 const { signupRouter } = require('./routes/auth/signup');
 const { signoutRouter } = require('./routes/auth/signout');
-const currentUser = require('./middlewares/currentUser');
-const cachetest = require('./middlewares/cachetest');
 const { indexPortfolioRouter } = require('./routes/portfolio');
 const { createTransactionRouter } = require('./routes/transaction/new');
+const { createHoldingRouter } = require('./routes/holding/new');
+const { showUserRouter } = require('./routes/auth/showUser');
+const { createPortfolioRouter } = require('./routes/portfolio/new');
+const { showPortfolioRouter } = require('./routes/portfolio/show');
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,9 +31,13 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
+app.use(showUserRouter);
 
 app.use(indexPortfolioRouter);
+app.use(createPortfolioRouter);
+app.use(showPortfolioRouter);
 app.use(createTransactionRouter);
+app.use(createHoldingRouter);
 
 app.get('/api/test', (req, res) => {
   res.send(

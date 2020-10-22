@@ -3,19 +3,24 @@
     <h1>Your portfolios</h1>
     <div class="grid">
       <transition-group name="list">
-        <Portfolio v-for="pf in portfolios" :key="pf.id" :portfolio="pf" />
+        <Portfolio
+          v-for="pf in portfolios"
+          :key="pf.id"
+          :portfolio="pf"
+          v-on:update-portfolio="updatePortfolio"
+        />
       </transition-group>
     </div>
   </section>
 </template>
 
 <script>
-import router from '../router';
-import axios from 'axios';
-import Portfolio from '../components/Portfolio.vue';
+import router from "../router";
+import axios from "axios";
+import Portfolio from "../components/Portfolio.vue";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
 
   components: {
     Portfolio,
@@ -27,18 +32,30 @@ export default {
     };
   },
 
+  methods: {
+    async updatePortfolio(portfolio) {
+      const res = await axios.get("/api/portfolio");
+      console.log("portfolio -> ", res.data);
+      this.portfolios = res.data;
+    },
+  },
+
   mounted() {
     if (!this.$store.state.currentUser) {
-      router.push('/');
+      router.push("/");
     }
   },
 
   async created() {
     if (this.$store.state.currentUser) {
-      // fetch portfolios for user
-      const res = await axios.get('/api/portfolio');
-      console.log('portfolio -> ', res.data);
+      //fetch portfolios for user
+      const res = await axios.get("/api/portfolio");
       this.portfolios = res.data;
+      /* console.log(
+        "user portfolios ->",
+        this.$store.state.currentUser.portfolios
+      );
+      this.portfolios = this.$store.state.currentUser.portfolios; */
     }
   },
 };

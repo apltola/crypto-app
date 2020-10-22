@@ -4,18 +4,12 @@
       <div>Add Crypto To {{ portfolioName }}</div>
       <form @submit="onSubmit" class="search-form">
         <input type="text" v-model="search" placeholder="Search coins..." />
-        <button type="submit">
-          Search
-        </button>
-        <button type="button" @click="clearSearch">
-          Clear Search
-        </button>
+        <button type="submit">Search</button>
+        <button type="button" @click="clearSearch">Clear Search</button>
       </form>
       <div class="results">
-        <div v-if="loading">
-          loading...
-        </div>
-        <button v-if="result" class="result-item">
+        <div v-if="loading">loading...</div>
+        <button v-if="result" class="result-item" @click="addHolding">
           <img :src="result.image.small" class="coin-image" />
           <span class="coin-name">{{ result.name }}</span>
           <span class="coin-symbol">{{ result.symbol }}</span>
@@ -29,16 +23,16 @@
 </template>
 
 <script>
-import geckoClient from '../api/coinGecko';
+import geckoClient from "../api/coinGecko";
 
 export default {
-  name: 'AddCryptoForm',
+  name: "AddCryptoForm",
 
-  props: ['show', 'portfolioName'],
+  props: ["show", "portfolioName"],
 
   data() {
     return {
-      search: '',
+      search: "",
       result: null,
       error: null,
       loading: false,
@@ -46,6 +40,11 @@ export default {
   },
 
   methods: {
+    addHolding() {
+      this.$emit("add-crypto", this.result.id);
+      this.clearSearch();
+    },
+
     async doSearch() {
       this.error = null;
       this.result = null;
@@ -62,7 +61,7 @@ export default {
     },
 
     clearSearch() {
-      this.search = '';
+      this.search = "";
       this.result = null;
     },
 
@@ -104,6 +103,7 @@ export default {
   align-items: center;
   background: transparent;
   box-shadow: none;
+  outline: none;
   color: #2c3e50;
   border: none;
   border-bottom: 1px solid #e1e4e8;
@@ -117,6 +117,10 @@ export default {
 
 .result-item:hover {
   background: #fafafa;
+}
+
+.result-item:active {
+  background: #e1e4e8;
 }
 
 .coin-image {

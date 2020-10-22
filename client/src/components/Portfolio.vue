@@ -1,9 +1,9 @@
 <template>
-  <article class="portfolio">
+  <article class="portfolio" v-if="portfolio && coinPrices">
     <header class="header">
       <div class="header-left">
         <div class="portfolio-title">
-          {{ portfolio.name }}
+          {{ portfolio.name || "" }}
         </div>
         <div class="portfolio-value">
           {{ getPortfolioValue() }}
@@ -11,7 +11,7 @@
       </div>
       <div class="header-right">
         <button @click="handleToggle" class="add-button">
-          {{ view === 'addCrypto' ? 'View Portfolio' : 'Add Crypto' }}
+          {{ view === "addCrypto" ? "View Portfolio" : "Add Crypto" }}
         </button>
       </div>
     </header>
@@ -20,6 +20,7 @@
       <AddCryptoForm
         :show="view === 'addCrypto'"
         :portfolioName="portfolio.name"
+        v-on:add-crypto="addCrypto"
       />
       <div class="holdings">
         <div v-if="portfolio.holdings.length === 0" class="empty">
@@ -55,13 +56,14 @@
 
 <script>
 // https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Ctezos&vs_currencies=eur%2Cusd
-import geckoApi from '../api/coinGecko';
-import AddCryptoForm from './AddCryptoForm.vue';
+import geckoApi from "../api/coinGecko";
+import axios from "axios";
+import AddCryptoForm from "./AddCryptoForm.vue";
 
 export default {
-  name: 'Portfolio',
+  name: "Portfolio",
 
-  props: ['portfolio'],
+  props: ["portfolio"],
 
   components: {
     AddCryptoForm,
@@ -69,30 +71,42 @@ export default {
 
   data() {
     return {
-      view: 'holdings',
-      currency: 'eur',
+      view: "holdings",
+      currency: "eur",
       coinPrices: null,
     };
   },
 
   methods: {
+    async addCrypto(cryptoName) {
+      console.log(cryptoName);
+      const res = await axios.post(
+        `/api/portfolio/${this.portfolio.id}/holding`,
+        { coin: cryptoName.toLowerCase() }
+      );
+      this.$emit("update-portfolio", res.data);
+    },
+
     handleToggle() {
-      if (this.view === 'holdings') {
-        this.view = 'addCrypto';
+      if (this.view === "holdings") {
+        this.view = "addCrypto";
       } else {
-        this.view = 'holdings';
+        this.view = "holdings";
       }
     },
 
     getPortfolioValue() {
       if (!this.coinPrices) {
-        return 'loading...';
+        return "loading...";
       }
 
       let sum = 0;
       this.portfolio.holdings.forEach((holding) => {
-        sum =
-          sum + this.coinPrices[holding.coin][this.currency] * holding.quantity;
+        if (this.coinPrices[holding.coin]) {
+          sum =
+            sum +
+            this.coinPrices[holding.coin][this.currency] * holding.quantity;
+        }
       });
       sum = sum.toFixed(2);
       sum = this.formatNumber(sum);
@@ -102,20 +116,20 @@ export default {
 
     getCurrencySymbol() {
       switch (this.currency) {
-        case 'eur':
-          return '€';
-        case 'usd':
-          return '$';
+        case "eur":
+          return "€";
+        case "usd":
+          return "$";
         default:
-          return '';
+          return "";
       }
     },
 
     formatNumber(_val) {
       let val = _val.toString();
-      val = val.replace('.', ',');
-      if (val.split(',')[0].length >= 4) {
-        const splitted = val.split(',');
+      val = val.replace(".", ",");
+      if (val.split(",")[0].length >= 4) {
+        const splitted = val.split(",");
         const start = splitted[0];
         const end = splitted[1];
         let slicePoint = start.length - 3;
@@ -129,8 +143,8 @@ export default {
     },
 
     formatPrice(holding) {
-      if (!this.coinPrices) {
-        return '';
+      if (!this.coinPrices || !this.coinPrices[holding.coin]) {
+        return "";
       }
 
       let price = this.formatNumber(
@@ -140,8 +154,8 @@ export default {
     },
 
     formatHolding(holding) {
-      if (!this.coinPrices) {
-        return '';
+      if (!this.coinPrices || !this.coinPrices[holding.coin]) {
+        return "";
       }
 
       const { quantity, coin } = holding;
@@ -151,20 +165,33 @@ export default {
       value = this.formatNumber(value);
       return `${value} ${this.getCurrencySymbol()}`;
     },
+
+    async fetchCoinPrices() {
+      let coins = "";
+
+      this.portfolio.holdings.forEach((holding) => {
+        coins = coins + `${holding.coin},`;
+      });
+
+      coins = encodeURIComponent(coins);
+
+      const url = `/simple/price?ids=${coins}&vs_currencies=${this.currency}`;
+      const res = await geckoApi.get(url);
+      this.coinPrices = res.data;
+    },
+  },
+
+  watch: {
+    portfolio: async function () {
+      console.log("watch portfolio");
+      this.fetchCoinPrices();
+    },
   },
 
   async created() {
-    let coins = '';
-
-    this.portfolio.holdings.forEach((holding) => {
-      coins = coins + `${holding.coin},`;
-    });
-
-    coins = encodeURIComponent(coins);
-
-    const url = `/simple/price?ids=${coins}&vs_currencies=${this.currency}`;
-    const res = await geckoApi.get(url);
-    this.coinPrices = res.data;
+    if (this.fetchCoinPrices) {
+      this.fetchCoinPrices();
+    }
   },
 };
 </script>
@@ -282,6 +309,10 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
+  .add-button {
+    font-size: 12px;
+  }
+
   .add-button:hover {
     background: transparent;
     color: white;
