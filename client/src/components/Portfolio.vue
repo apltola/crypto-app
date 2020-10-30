@@ -29,16 +29,24 @@
         <div v-else>
           <div class="row title-row">
             <div>Coin</div>
-            <div>token price</div>
+            <div>Rate</div>
             <div>Holdings</div>
           </div>
-          <div
+          <HoldingItem
+            v-for="holding in portfolio.holdings"
+            :key="holding.id"
+            :holding="holding"
+            :rate="formatPrice(holding)"
+            :holdingValue="formatHolding(holding)"
+            @delete-holding="deleteHolding"
+          />
+          <!-- <div
             v-for="holding in portfolio.holdings"
             :key="holding.id"
             class="row data-row"
           >
             <div class="coin">
-              {{ holding.coin }}
+              {{ holding.coinSymbol }}
             </div>
             <div class="price">
               {{ formatPrice(holding) }}
@@ -47,7 +55,7 @@
               <div>{{ formatHolding(holding) }}</div>
               <div class="holding-crypto">{{ holding.quantity }}</div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -59,6 +67,7 @@
 import geckoApi from "../api/coinGecko";
 import axios from "axios";
 import AddCryptoForm from "./AddCryptoForm.vue";
+import HoldingItem from './HoldingItem.vue';
 
 export default {
   name: "Portfolio",
@@ -67,6 +76,7 @@ export default {
 
   components: {
     AddCryptoForm,
+    HoldingItem
   },
 
   data() {
@@ -78,12 +88,17 @@ export default {
   },
 
   methods: {
-    async addHolding(cryptoName) {
-      console.log(cryptoName);
+    async addHolding(crypto) {
+      const { coinName, coinSymbol, imgUrl } = crypto;
       const res = await axios.post(
         `/api/portfolio/${this.portfolio.id}/holding`,
-        { coin: cryptoName.toLowerCase() }
+        { coinName: coinName.toLowerCase(), coinSymbol, imgUrl }
       );
+      this.$emit("update-portfolio", res.data);
+    },
+
+    async deleteHolding(id) {
+      const res = await axios.delete(`/api/portfolio/${this.portfolio.id}/holding/${id}`);
       this.$emit("update-portfolio", res.data);
     },
 
@@ -102,10 +117,11 @@ export default {
 
       let sum = 0;
       this.portfolio.holdings.forEach((holding) => {
-        if (this.coinPrices[holding.coin]) {
+        const { coinName } = holding;
+        if (this.coinPrices[coinName]) {
           sum =
             sum +
-            this.coinPrices[holding.coin][this.currency] * holding.quantity;
+            this.coinPrices[coinName][this.currency] * holding.quantity;
         }
       });
       sum = sum.toFixed(2);
@@ -125,8 +141,8 @@ export default {
       }
     },
 
-    formatNumber(_val) {
-      let val = _val.toString();
+    formatNumber(p) {
+      let val = p.toString();
       val = val.replace(".", ",");
       if (val.split(",")[0].length >= 4) {
         const splitted = val.split(",");
@@ -143,23 +159,23 @@ export default {
     },
 
     formatPrice(holding) {
-      if (!this.coinPrices || !this.coinPrices[holding.coin]) {
+      if (!this.coinPrices || !this.coinPrices[holding.coinName]) {
         return "";
       }
 
       let price = this.formatNumber(
-        this.coinPrices[holding.coin][this.currency]
+        this.coinPrices[holding.coinName][this.currency]
       );
       return `${price} ${this.getCurrencySymbol()}`;
     },
 
     formatHolding(holding) {
-      if (!this.coinPrices || !this.coinPrices[holding.coin]) {
+      if (!this.coinPrices || !this.coinPrices[holding.coinName]) {
         return "";
       }
 
-      const { quantity, coin } = holding;
-      let value = this.coinPrices[coin][this.currency] * quantity;
+      const { quantity, coinName } = holding;
+      let value = this.coinPrices[coinName][this.currency] * quantity;
       //this.portfolioValue = this.portfolioValue + value;
       value = value.toFixed(2);
       value = this.formatNumber(value);
@@ -170,12 +186,12 @@ export default {
       let coins = "";
 
       this.portfolio.holdings.forEach((holding) => {
-        coins = coins + `${holding.coin},`;
+        coins = coins + `${holding.coinName},`;
       });
 
       coins = encodeURIComponent(coins);
 
-      const url = `/simple/price?ids=${coins}&vs_currencies=${this.currency}`;
+      const url = `/simple/price?ids=${coins}&vs_currencies=eur,usd`;
       const res = await geckoApi.get(url);
       this.coinPrices = res.data;
     },
@@ -200,7 +216,7 @@ export default {
 .portfolio {
   margin: 0;
   width: 95vw;
-  max-width: 700px;
+  max-width: 800px;
   text-align: left;
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
@@ -306,6 +322,7 @@ export default {
 
 .container {
   position: relative;
+  min-height: 250px;
 }
 
 @media screen and (max-width: 600px) {

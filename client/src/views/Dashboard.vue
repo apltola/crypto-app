@@ -2,7 +2,10 @@
   <section>
     <h1>Your portfolios</h1>
     <div class="grid">
-      <transition-group name="list">
+      <div v-if="portfolios.length === 0" class="no-portfolios">
+        No portfolios...
+      </div>
+      <transition-group v-else name="list">
         <Portfolio
           v-for="pf in portfolios"
           :key="pf.id"

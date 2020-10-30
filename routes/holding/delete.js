@@ -4,14 +4,16 @@ const { Portfolio } = require('../../models/Portfolio');
 
 const router = express.Router();
 
-router.post(
-  '/api/portfolio/:portfolioId/holding',
+router.delete(
+  '/api/portfolio/:portfolioId/holding/:holdingId',
   requireAuth,
   async (req, res) => {
     const portfolio = await Portfolio.findById(req.params.portfolioId);
 
     portfolio.set({
-      holdings: [...portfolio.holdings, req.body],
+      holdings: portfolio.holdings.filter(holding => {
+        return holding.id !== req.params.holdingId
+      }),
     });
     await portfolio.save();
 
@@ -20,5 +22,5 @@ router.post(
 );
 
 module.exports = {
-  createHoldingRouter: router,
+  deleteHoldingRouter: router,
 };

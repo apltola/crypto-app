@@ -9,7 +9,8 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
   const {
     portfolioId,
     type,
-    coin,
+    coinName,
+    coinSymbol,
     quantity,
     boughtWith,
     soldWith,
@@ -27,7 +28,8 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
       ...portfolio.transactions,
       {
         type,
-        coin,
+        coinName,
+        coinSymbol,
         quantity: boughtWith ? quantity : -quantity,
         //quantity: quantity > 0 ? quantity : -quantity,
         boughtWith,

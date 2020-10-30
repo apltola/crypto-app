@@ -13,6 +13,7 @@ const { createHoldingRouter } = require('./routes/holding/new');
 const { showUserRouter } = require('./routes/auth/showUser');
 const { createPortfolioRouter } = require('./routes/portfolio/new');
 const { showPortfolioRouter } = require('./routes/portfolio/show');
+const { deleteHoldingRouter } = require('./routes/holding/delete');
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,6 +39,7 @@ app.use(createPortfolioRouter);
 app.use(showPortfolioRouter);
 app.use(createTransactionRouter);
 app.use(createHoldingRouter);
+app.use(deleteHoldingRouter);
 
 app.get('/api/test', (req, res) => {
   res.send(

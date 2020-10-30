@@ -3,7 +3,12 @@
     <div v-if="show" class="add-crypto">
       <div>Add Crypto To {{ portfolioName }}</div>
       <form @submit="onSubmit" class="search-form">
-        <input type="text" v-model="search" placeholder="Search coins..." />
+        <input
+          type="text"
+          v-model="search"
+          placeholder="Search with coin name"
+          class="search-input"
+        />
         <button type="submit">Search</button>
         <button type="button" @click="clearSearch">Clear Search</button>
       </form>
@@ -17,7 +22,11 @@
         <div v-if="error">
           {{ error }}
         </div>
+        <div v-if="success">
+          {{ success }}
+        </div>
       </div>
+      <!-- {{JSON.stringify(result, null, 2)}} -->
     </div>
   </transition>
 </template>
@@ -35,34 +44,48 @@ export default {
       search: "",
       result: null,
       error: null,
+      success: '',
       loading: false,
     };
   },
 
   methods: {
     addHolding() {
-      this.$emit("add-holding", this.result.id);
+      this.$emit("add-holding", {
+        coinName: this.result.id,
+        coinSymbol: this.result.symbol,
+        imgUrl: this.result.image.small || ''
+      });
+      const successMsg = `${this.result.name} added into portfolio`;
       this.clearSearch();
+      this.success = successMsg;
+      setTimeout(() => {
+        this.success = '';
+      }, 3000);
     },
 
     async doSearch() {
+      this.success = ''
       this.error = null;
       this.result = null;
       this.loading = true;
       try {
-        const res = await geckoClient.get(`/coins/${this.search}`);
+        const res = await geckoClient.get(
+          `/coins/${this.search.toLowerCase()}`
+        );
         console.log(res.data);
         this.loading = false;
         this.result = res.data;
       } catch (err) {
         this.loading = false;
-        this.error = err.response.data.error;
+        this.error = `Could not find coin with name '${this.search}'`;
       }
     },
 
     clearSearch() {
-      this.search = "";
+      this.search = '';
       this.result = null;
+      //this.success = ''
     },
 
     async onSubmit(e) {
@@ -92,6 +115,10 @@ export default {
 
 .search-form {
   padding-top: 10px;
+}
+
+.search-input {
+  font-size: 16px;
 }
 
 .results {

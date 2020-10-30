@@ -9,10 +9,10 @@ router.get('/api/auth/currentuser', async (req, res) => {
     res.send({ currentUser: null });
   }
 
-  const user = await User.findById(req.currentUser.id);
+  //const user = await User.findById(req.currentUser.id);
 
   res.send({
-    currentUser: user,
+    currentUser: req.currentUser,
   });
 });
 

@@ -8,7 +8,7 @@
     "start": "node index.js",
     "build:client": "npm run build --prefix client",
     "dev:client": "npm run serve --prefix client",
-    "pub": "npm run build:client && git add . && git commit -m \"build\" && git push origin master"
+    "push:build": "npm run build:client && git add . && git commit -m \"build\" && git push origin master"
   },
   "keywords": [],
   "author": "",

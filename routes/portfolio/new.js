@@ -14,12 +14,12 @@ router.post('/api/portfolio/:userId', requireAuth, async (req, res) => {
   await portfolio.save();
 
   const user = await User.findById(req.params.userId);
-  console.log(user);
+  /* console.log(user);
   user.set({
     portfolios: [...user.portfolios, portfolio.id],
   });
   //user.portfolios.push(portfolio.id);
-  await user.save();
+  await user.save(); */
 
   res.send(user);
 });

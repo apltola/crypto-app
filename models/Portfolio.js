@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const holdingSchema = new mongoose.Schema({
-  coin: {
+  coinName: {
+    type: String,
+    required: true,
+  },
+  coinSymbol: {
     type: String,
     required: true,
   },
@@ -10,7 +14,18 @@ const holdingSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
-  transactedWith: [],
+  imgUrl: {
+    type: String,
+  }
+  //transactedWith: [],
+},
+{
+  toJSON: {
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+    },
+  },
 });
 
 const transactionSchema = new mongoose.Schema({
@@ -18,7 +33,11 @@ const transactionSchema = new mongoose.Schema({
     type: String, //'buy' or 'sell'
     required: true,
   },
-  coin: {
+  coinName: {
+    type: String,
+    required: true,
+  },
+  coinSymbol: {
     type: String,
     required: true,
   },
@@ -39,11 +58,15 @@ const transactionSchema = new mongoose.Schema({
   date: {
     type: mongoose.Schema.Types.Date,
   },
+},
+{
+  toJSON: {
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+    },
+  },
 });
-
-/* const currencySchema = new mongoose.Schema({
-
-}) */
 
 const portfolioSchema = new mongoose.Schema(
   {
@@ -74,33 +97,35 @@ portfolioSchema.methods.calculateHoldings = async function () {
     if (!Array.isArray(acc)) {
       arr = [
         {
-          coin: acc.coin,
+          coinName: acc.coinName,
+          coinSymbol: acc.coinSymbol,
           quantity: acc.quantity,
-          transactedWith: [acc.boughtWith || acc.soldWith],
+          //transactedWith: [acc.boughtWith || acc.soldWith],
         },
       ];
     } else {
       arr = acc;
     }
 
-    const i = arr.findIndex((el) => el.coin === cur.coin);
+    const i = arr.findIndex((el) => el.coinSymbol === cur.coinSymbol);
     if (i === -1) {
       return [
         ...arr,
         {
-          coin: cur.coin,
+          coinName: cur.coinName,
+          coinSymbol: cur.coinSymbol,
           quantity: cur.quantity,
-          transactedWith: [cur.boughtWith || cur.soldWith],
+          //transactedWith: [cur.boughtWith || cur.soldWith],
         },
       ];
     } else {
       arr[i].quantity = arr[i].quantity + cur.quantity;
-      if (!arr[i].transactedWith.includes(cur.boughtWith || cur.soldWith)) {
+      /* if (!arr[i].transactedWith.includes(cur.boughtWith || cur.soldWith)) {
         arr[i].transactedWith = [
           ...arr[i].transactedWith,
           cur.boughtWith || cur.soldWith,
         ];
-      }
+      } */
 
       return arr;
     }
@@ -109,11 +134,12 @@ portfolioSchema.methods.calculateHoldings = async function () {
   if (this.transactions.length === 1) {
     this.set('holdings', [
       {
-        coin: this.transactions[0].coin,
+        coinName: this.transactions[0].coinName,
+        coinSymbol: this.transactions[0].coinSymbol,
         quantity: this.transactions[0].quantity,
-        transactedWith: [
+        /* transactedWith: [
           this.transactions[0].boughtWith || this.transactions[0].soldWith,
-        ],
+        ], */
       },
     ]);
   } else {

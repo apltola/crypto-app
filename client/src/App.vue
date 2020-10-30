@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import axios from "axios";
+import Header from './components/Header.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -23,7 +23,7 @@ export default {
   },
 
   async created() {
-    await this.$store.dispatch("fetchCurrentUser");
+    await this.$store.dispatch('fetchCurrentUser');
   },
 };
 </script>
