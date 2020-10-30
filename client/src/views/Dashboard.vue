@@ -3,7 +3,7 @@
     <h1>Your portfolios</h1>
     <div class="grid">
       <div v-if="portfolios.length === 0" class="no-portfolios">
-        No portfolios...
+        {{ noPortfoliosMessage || 'Loading...' }}
       </div>
       <transition-group v-else name="list">
         <Portfolio
@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import router from "../router";
-import axios from "axios";
-import Portfolio from "../components/Portfolio.vue";
+import router from '../router';
+import axios from 'axios';
+import Portfolio from '../components/Portfolio.vue';
 
 export default {
-  name: "Dashboard",
+  name: 'Dashboard',
 
   components: {
     Portfolio,
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       portfolios: [],
+      noPortfoliosMessage: '',
     };
   },
 
@@ -41,23 +42,23 @@ export default {
       const i = newArr.findIndex((p) => p.id === portfolio.id);
       newArr[i] = portfolio;
       this.portfolios = newArr;
-      /* const res = await axios.get("/api/portfolio");
-      console.log("portfolio -> ", res.data);
-      this.portfolios = res.data; */
     },
   },
 
   mounted() {
     if (!this.$store.state.currentUser) {
-      router.push("/");
+      router.push('/');
     }
   },
 
   async created() {
     if (this.$store.state.currentUser) {
       //fetch portfolios for user
-      const res = await axios.get("/api/portfolio");
+      const res = await axios.get('/api/portfolio');
       this.portfolios = res.data;
+      if (res.data.length === 0) {
+        this.noPortfoliosMessage = 'No portfolios';
+      }
     }
   },
 };
@@ -68,7 +69,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  padding: 20px;
+  padding: 20px 0px;
   overflow: visible;
 }
 

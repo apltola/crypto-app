@@ -45,11 +45,11 @@ body {
 
   .app-content {
     flex: 1;
+    padding: 20px 20px 80px;
   }
 
   .app-footer {
     border: 1.5px solid #e1e4e8;
-    margin-top: 80px;
     /* background: #f5f8ff; */
     padding: 20px;
   }
@@ -66,6 +66,10 @@ body {
     box-shadow: none;
     border: none;
     background: none;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 

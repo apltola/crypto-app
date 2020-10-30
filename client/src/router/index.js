@@ -13,8 +13,7 @@ const routes = [
   {
     path: '/auth/signin',
     name: 'Signin',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/Signin.vue'),
+    component: () => import('../views/Signin.vue'),
     props: {
       authType: 'signin',
     },
@@ -22,8 +21,7 @@ const routes = [
   {
     path: '/auth/register',
     name: 'Register',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/Register.vue'),
+    component: () => import('../views/Register.vue'),
     props: {
       authType: 'register',
     },
@@ -31,8 +29,12 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
+    component: () => import('../views/Dashboard.vue'),
+  },
+  {
+    path: '/portfolio/:portfolioId/transaction',
+    name: 'AddTransaction',
+    component: () => import('../views/AddTransaction.vue'),
   },
   {
     path: '/about',

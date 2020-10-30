@@ -1,6 +1,6 @@
 <template>
   <div class="row data-row">
-    <div class="coin">
+    <div class="coin row-left">
       <img v-if="holding.imgUrl" :src="holding.imgUrl" class="img" />
       {{ holding.coinSymbol }}
     </div>
@@ -8,15 +8,17 @@
       {{ rate }}
     </div>
     <div class="holding">
-      <div class="holding-value">
-        <div>{{ holdingValue }}</div>
-        <div class="holding-crypto">{{ holding.quantity }}</div>
-      </div>
-      <div>
-        <button @click="deleteHolding" class="delete-btn">
-          <font-awesome-icon icon="trash-alt" />
-        </button>
-      </div>
+      <div>{{ holdingValue }}</div>
+      <div class="holding-quantity">{{ holding.quantity }}</div>
+    </div>
+    <div>
+      <router-link :to="`/portfolio/${portfolioId}/transaction`">
+        <button class="button mobile-only">Add</button>
+        <button class="button hide-mobile">Add Transaction</button>
+      </router-link>
+      <button @click="deleteHolding" class="button delete">
+        <font-awesome-icon icon="trash-alt" />
+      </button>
     </div>
   </div>
 </template>
@@ -25,7 +27,7 @@
 export default {
   name: 'HoldingItem',
 
-  props: ['holding', 'rate', 'holdingValue'],
+  props: ['holding', 'rate', 'holdingValue', 'portfolioId'],
 
   methods: {
     deleteHolding() {
@@ -48,6 +50,11 @@ export default {
   flex: 1;
 }
 
+.row > div:nth-last-child(1) {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .coin {
   display: flex;
   align-items: center;
@@ -64,16 +71,7 @@ export default {
   font-weight: 500;
 }
 
-.holding {
-  display: flex;
-  align-items: center;
-}
-
-.holding-value {
-  flex: 1;
-}
-
-.holding-crypto {
+.holding-quantity {
   opacity: 0.7;
 }
 
@@ -83,7 +81,7 @@ export default {
   font-size: 14px;
 }
 
-.delete-btn {
+.button {
   background: transparent;
   box-shadow: none;
   border: 1px solid #e1e4e8;
@@ -91,7 +89,39 @@ export default {
   padding: 5px 10px;
 }
 
+.delete {
+  margin-left: 15px;
+}
+
+.mobile-only {
+  display: none;
+}
+
 @media screen and (max-width: 600px) {
+  /*   .row > div:nth-last-child(1) {
+    flex: 2;
+  }
+
+  .row > div {
+    flex: 1.5;
+  }
+
+  .row .row-left {
+    flex: 1;
+  } */
+
+  .hide-mobile {
+    display: none;
+  }
+
+  .mobile-only {
+    display: inline;
+  }
+
+  .row > div:nth-last-child(1) {
+    justify-content: space-around;
+  }
+
   .coin {
     font-size: 12px;
   }

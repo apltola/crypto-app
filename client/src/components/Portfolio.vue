@@ -3,7 +3,7 @@
     <header class="header">
       <div class="header-left">
         <div class="portfolio-title">
-          {{ portfolio.name || "" }}
+          {{ portfolio.name || '' }}
         </div>
         <div class="portfolio-value">
           {{ getPortfolioValue() }}
@@ -11,7 +11,7 @@
       </div>
       <div class="header-right">
         <button @click="handleToggle" class="add-button">
-          {{ view === "addCrypto" ? "View Portfolio" : "Add Crypto" }}
+          {{ view === 'addCrypto' ? 'View Portfolio' : 'Add Crypto' }}
         </button>
       </div>
     </header>
@@ -28,9 +28,10 @@
         </div>
         <div v-else>
           <div class="row title-row">
-            <div>Coin</div>
+            <div class="row-left">Coin</div>
             <div>Rate</div>
             <div>Holdings</div>
+            <div></div>
           </div>
           <HoldingItem
             v-for="holding in portfolio.holdings"
@@ -38,6 +39,7 @@
             :holding="holding"
             :rate="formatPrice(holding)"
             :holdingValue="formatHolding(holding)"
+            :portfolioId="portfolio.id"
             @delete-holding="deleteHolding"
           />
           <!-- <div
@@ -64,64 +66,65 @@
 
 <script>
 // https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Ctezos&vs_currencies=eur%2Cusd
-import geckoApi from "../api/coinGecko";
-import axios from "axios";
-import AddCryptoForm from "./AddCryptoForm.vue";
+import geckoApi from '../api/coinGecko';
+import axios from 'axios';
+import AddCryptoForm from './AddCryptoForm.vue';
 import HoldingItem from './HoldingItem.vue';
 
 export default {
-  name: "Portfolio",
+  name: 'Portfolio',
 
-  props: ["portfolio"],
+  props: ['portfolio'],
 
   components: {
     AddCryptoForm,
-    HoldingItem
+    HoldingItem,
   },
 
   data() {
     return {
-      view: "holdings",
-      currency: "eur",
+      view: 'holdings',
+      currency: 'eur',
       coinPrices: null,
     };
   },
 
   methods: {
     async addHolding(crypto) {
-      const { coinName, coinSymbol, imgUrl } = crypto;
+      const { coinName, coinSymbol, imgUrl } = crypto;
       const res = await axios.post(
         `/api/portfolio/${this.portfolio.id}/holding`,
         { coinName: coinName.toLowerCase(), coinSymbol, imgUrl }
       );
-      this.$emit("update-portfolio", res.data);
+      this.$emit('update-portfolio', res.data);
     },
 
     async deleteHolding(id) {
-      const res = await axios.delete(`/api/portfolio/${this.portfolio.id}/holding/${id}`);
-      this.$emit("update-portfolio", res.data);
+      const res = await axios.delete(
+        `/api/portfolio/${this.portfolio.id}/holding/${id}`
+      );
+      this.$emit('update-portfolio', res.data);
     },
 
     handleToggle() {
-      if (this.view === "holdings") {
-        this.view = "addCrypto";
+      if (this.view === 'holdings') {
+        this.view = 'addCrypto';
       } else {
-        this.view = "holdings";
+        this.view = 'holdings';
       }
     },
 
     getPortfolioValue() {
       if (!this.coinPrices) {
-        return "loading...";
+        return 'loading...';
       }
 
       let sum = 0;
       this.portfolio.holdings.forEach((holding) => {
-        const { coinName } = holding;
+        const { coinName } = holding;
         if (this.coinPrices[coinName]) {
           sum =
-            sum +
-            this.coinPrices[coinName][this.currency] * holding.quantity;
+            sum + this.coinPrices[coinName][this.currency] * holding.quantity;
         }
       });
       sum = sum.toFixed(2);
@@ -132,20 +135,20 @@ export default {
 
     getCurrencySymbol() {
       switch (this.currency) {
-        case "eur":
-          return "€";
-        case "usd":
-          return "$";
+        case 'eur':
+          return '€';
+        case 'usd':
+          return '$';
         default:
-          return "";
+          return '';
       }
     },
 
     formatNumber(p) {
       let val = p.toString();
-      val = val.replace(".", ",");
-      if (val.split(",")[0].length >= 4) {
-        const splitted = val.split(",");
+      val = val.replace('.', ',');
+      if (val.split(',')[0].length >= 4) {
+        const splitted = val.split(',');
         const start = splitted[0];
         const end = splitted[1];
         let slicePoint = start.length - 3;
@@ -160,7 +163,7 @@ export default {
 
     formatPrice(holding) {
       if (!this.coinPrices || !this.coinPrices[holding.coinName]) {
-        return "";
+        return '';
       }
 
       let price = this.formatNumber(
@@ -171,7 +174,7 @@ export default {
 
     formatHolding(holding) {
       if (!this.coinPrices || !this.coinPrices[holding.coinName]) {
-        return "";
+        return '';
       }
 
       const { quantity, coinName } = holding;
@@ -183,7 +186,7 @@ export default {
     },
 
     async fetchCoinPrices() {
-      let coins = "";
+      let coins = '';
 
       this.portfolio.holdings.forEach((holding) => {
         coins = coins + `${holding.coinName},`;
@@ -198,8 +201,8 @@ export default {
   },
 
   watch: {
-    portfolio: async function () {
-      console.log("watch portfolio");
+    portfolio: async function() {
+      console.log('watch portfolio');
       this.fetchCoinPrices();
     },
   },
@@ -215,7 +218,7 @@ export default {
 <style scoped>
 .portfolio {
   margin: 0;
-  width: 95vw;
+  width: calc(100vw - 40px);
   max-width: 800px;
   text-align: left;
   border-radius: 10px;
@@ -257,7 +260,6 @@ export default {
   border: 2px solid white;
   border-radius: 4px;
   outline: none;
-  transition: 150ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .add-button:hover {
@@ -282,30 +284,11 @@ export default {
   padding: 10px 0;
 }
 
-.row > div {
-  flex: 1;
-}
-
 .title-row > div {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 500;
-}
-
-.price,
-.holding {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.holding-crypto {
-  opacity: 0.7;
-}
-
-.coin {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 14px;
+  flex: 1;
 }
 
 .empty {
@@ -326,6 +309,18 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
+  /*   .title-row > div:nth-last-child(1) {
+    flex: 2;
+  }
+
+  .title-row > div {
+    flex: 1.5;
+  }
+
+  .title-row .row-left {
+    flex: 1;
+  } */
+
   .add-button {
     font-size: 12px;
   }
@@ -341,10 +336,6 @@ export default {
 
   .header {
     padding: 20px 15px;
-  }
-
-  .coin {
-    font-size: 12px;
   }
 }
 </style>
