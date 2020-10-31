@@ -15,13 +15,8 @@
             Logout {{ this.$store.state.currentUser.username }}
           </button>
         </div>
-        <div class="show-mobile">
-          <button class="menu-button" @click="showMenu = !showMenu">
-            <font-awesome-icon icon="bars" class="menu-icon" />
-          </button>
-        </div>
       </div>
-      <div v-else>
+      <div v-else class="hide-mobile">
         <router-link to="/auth/signin" class="signin">
           Sign In
         </router-link>
@@ -29,21 +24,34 @@
           Register
         </router-link>
       </div>
+      <div class="show-mobile">
+        <button class="menu-button" @click="showMenu = !showMenu">
+          <font-awesome-icon icon="bars" class="menu-icon" />
+        </button>
+      </div>
     </div>
     <transition name="fade">
       <div v-if="showMenu" class="show-mobile mobile-menu">
         <div class="mobile-header">
-          <button @click="showMenu = !showMenu" class="close-btn">
+          <button @click="closeMenu" class="close-btn">
             <font-awesome-icon icon="times" class="close-icon" />
           </button>
         </div>
-        <div class="mobile-menu-links">
-          <router-link to="/dashboard" class="menu-dashboard">
-            View Portfolios
+        <div v-if="this.$store.state.currentUser" class="mobile-menu-links">
+          <router-link to="/dashboard">
+            <button @click="closeMenu">View Portfolios</button>
           </router-link>
-          <button @click="logout" class="menu-logout">
+          <button @click="logout">
             Logout {{ this.$store.state.currentUser.username }}
           </button>
+        </div>
+        <div v-else class="mobile-menu-links">
+          <router-link to="/auth/signin">
+            <button @click="closeMenu">Sing In</button>
+          </router-link>
+          <router-link to="/auth/register">
+            <button @click="closeMenu">Register</button>
+          </router-link>
         </div>
       </div>
     </transition>
@@ -61,7 +69,12 @@ export default {
   },
 
   methods: {
+    closeMenu() {
+      this.showMenu = false;
+    },
+
     async logout() {
+      this.showMenu = false;
       await this.$store.dispatch('logout');
     },
   },
@@ -126,19 +139,20 @@ export default {
   display: block;
   color: white;
   font-size: 16px;
-  padding: 10px;
+}
+
+.mobile-menu-links button {
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  width: 100%;
+  padding: 15px;
 }
 
 .mobile-header {
   display: flex;
   justify-content: flex-end;
-}
-
-.menu-logout {
-  background: transparent;
-  border: none;
-  outline: none;
-  box-shadow: none;
 }
 
 .close-btn {
@@ -177,11 +191,16 @@ export default {
   }
 
   .menu-button {
-    background-color: #00cdac;
+    background-image: linear-gradient(
+      -225deg,
+      #3d4e81 0%,
+      #5753c9 48%,
+      #6e7ff3 100%
+    );
     box-shadow: none;
     outline: none;
     padding: 5px 8px;
-    border: 1px solid #00cdac;
+    border: none;
     border-radius: 0;
   }
 
