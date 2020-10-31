@@ -50,7 +50,7 @@
             <button @click="closeMenu">Sing In</button>
           </router-link>
           <router-link to="/auth/register">
-            <button @click="closeMenu">Register</button>
+            <button @click="closeMenu">Create Account</button>
           </router-link>
         </div>
       </div>

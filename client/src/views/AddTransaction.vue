@@ -234,6 +234,7 @@ h2 {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  align-items: center;
   padding: 15px 0;
   border-bottom: 1px solid #e1e4e8;
 }
@@ -300,12 +301,12 @@ h2 {
 
   input {
     font-size: 16px;
-    max-width: 120px;
+    max-width: 130px;
   }
 
   select {
     font-size: 16px;
-    max-width: 140px;
+    max-width: 150px;
   }
 
   .submit {

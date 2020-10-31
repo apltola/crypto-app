@@ -56,7 +56,7 @@ export default {
         coinSymbol: this.result.symbol,
         imgUrl: this.result.image.small || '',
       });
-      const successMsg = `${this.result.name} added into portfolio`;
+      const successMsg = `${this.result.name} added in your portfolio`;
       this.clearSearch();
       this.success = successMsg;
       setTimeout(() => {

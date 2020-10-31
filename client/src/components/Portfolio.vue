@@ -219,6 +219,7 @@ export default {
   border: 2px solid white;
   border-radius: 4px;
   outline: none;
+  padding: 5px 10px;
 }
 
 .add-button:hover {
