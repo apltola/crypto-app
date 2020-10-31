@@ -28,7 +28,7 @@
               </div>
               <div class="row">
                 <label for="currency">{{
-                  transactionType === 'buy' ? 'Bought With' : 'Sold With'
+                  transactionType === 'buy' ? 'Bought With' : 'Sold For'
                 }}</label>
                 <select v-model="selectedCurrency">
                   <option disabled value="">Select currency</option>
@@ -51,7 +51,12 @@
               </div>
               <div class="row">
                 <label for="qty">Quantity ({{ coinSymbol }})</label>
-                <input type="number" name="qty" v-model="quantity" step=".01" />
+                <input
+                  type="number"
+                  name="qty"
+                  v-model="quantity"
+                  step=".00000001"
+                />
               </div>
               <!-- <div class="row">
                 <label for="date">Date</label>
@@ -68,7 +73,7 @@
                 </button>
               </div>
             </form>
-            <div>
+            <div style="margin-top: 40px">
               selectedCurrency: {{ JSON.stringify(selectedCurrency, null, 2) }}
             </div>
             <div>pricePerCoin: {{ JSON.stringify(pricePerCoin, null, 2) }}</div>
@@ -127,7 +132,6 @@ export default {
     },
 
     submitIsDisabled() {
-      console.log('check disabled');
       if (
         !(this.boughtWith || this.soldWith) ||
         !this.quantity ||

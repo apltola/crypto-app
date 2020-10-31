@@ -8,8 +8,10 @@
       {{ rate }}
     </div>
     <div class="holding">
-      <div>{{ holdingValue }}</div>
-      <div class="holding-quantity">{{ holding.quantity }}</div>
+      <div class="holding-value">{{ holdingValue }}</div>
+      <div class="holding-quantity">
+        {{ holding.quantity.toFixed(8) }} {{ holding.coinSymbol }}
+      </div>
     </div>
     <div>
       <router-link
@@ -71,13 +73,20 @@ export default {
 }
 
 .price,
-.holding {
-  font-size: 14px;
+.holding-value,
+.holding-quantity {
   font-weight: 500;
+}
+
+.price,
+.holding-value {
+  font-size: 16px;
 }
 
 .holding-quantity {
   opacity: 0.7;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 .coin {
@@ -103,17 +112,14 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-  /*   .row > div:nth-last-child(1) {
-    flex: 2;
+  .price,
+  .holding-value {
+    font-size: 14px;
   }
 
-  .row > div {
-    flex: 1.5;
+  .holding-quantity {
+    font-size: 12px;
   }
-
-  .row .row-left {
-    flex: 1;
-  } */
 
   .hide-mobile {
     display: none;

@@ -95,7 +95,7 @@ const portfolioSchema = new mongoose.Schema(
   }
 );
 
-portfolioSchema.methods.calculateHoldings = async function () {
+/* portfolioSchema.methods.calculateHoldings = async function () {
   const reducer = (acc, cur, idx, src) => {
     let arr = [];
     if (!Array.isArray(acc)) {
@@ -104,8 +104,6 @@ portfolioSchema.methods.calculateHoldings = async function () {
           coinName: acc.coinName,
           coinSymbol: acc.coinSymbol,
           quantity: acc.quantity,
-          //imgUrl: acc.imgUrl,
-          //transactedWith: [acc.boughtWith || acc.soldWith],
         },
       ];
     } else {
@@ -120,18 +118,10 @@ portfolioSchema.methods.calculateHoldings = async function () {
           coinName: cur.coinName,
           coinSymbol: cur.coinSymbol,
           quantity: cur.quantity,
-          //imgUrl: cur.imgUrl,
-          //transactedWith: [cur.boughtWith || cur.soldWith],
         },
       ];
     } else {
       arr[i].quantity = arr[i].quantity + cur.quantity;
-      /* if (!arr[i].transactedWith.includes(cur.boughtWith || cur.soldWith)) {
-        arr[i].transactedWith = [
-          ...arr[i].transactedWith,
-          cur.boughtWith || cur.soldWith,
-        ];
-      } */
 
       return arr;
     }
@@ -143,7 +133,6 @@ portfolioSchema.methods.calculateHoldings = async function () {
         coinName: this.transactions[0].coinName,
         coinSymbol: this.transactions[0].coinSymbol,
         quantity: this.transactions[0].quantity,
-        //imgUrl: this.transactions[0].imgUrl,y
       },
     ]);
   } else {
@@ -151,7 +140,7 @@ portfolioSchema.methods.calculateHoldings = async function () {
   }
 
   await this.save();
-};
+}; */
 
 const Portfolio = mongoose.model('Portfolio', portfolioSchema);
 

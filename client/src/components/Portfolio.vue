@@ -20,6 +20,7 @@
       <AddCryptoForm
         :show="view === 'addCrypto'"
         :portfolioName="portfolio.name"
+        :portfolioHoldings="portfolio.holdings"
         v-on:add-holding="addHolding"
       />
       <div class="holdings">
@@ -42,22 +43,6 @@
             :portfolioId="portfolio.id"
             @delete-holding="deleteHolding"
           />
-          <!-- <div
-            v-for="holding in portfolio.holdings"
-            :key="holding.id"
-            class="row data-row"
-          >
-            <div class="coin">
-              {{ holding.coinSymbol }}
-            </div>
-            <div class="price">
-              {{ formatPrice(holding) }}
-            </div>
-            <div class="holding">
-              <div>{{ formatHolding(holding) }}</div>
-              <div class="holding-crypto">{{ holding.quantity }}</div>
-            </div>
-          </div> -->
         </div>
       </div>
     </section>

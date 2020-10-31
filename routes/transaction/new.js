@@ -31,7 +31,6 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
         coinName,
         coinSymbol,
         quantity: boughtWith ? quantity : -quantity,
-        //quantity: quantity > 0 ? quantity : -quantity,
         boughtWith,
         soldWith,
         pricePerCoin,
@@ -39,8 +38,15 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
       },
     ],
   });
+  const holding = portfolio.holdings.find((el) => el.coinSymbol === coinSymbol);
+  if (boughtWith) {
+    holding.quantity =
+      parseFloat(holding.quantity) + parseFloat(req.body.quantity);
+  } else {
+    holding.quantity =
+      parseFloat(holding.quantity) - parseFloat(req.body.quantity);
+  }
   await portfolio.save();
-  await portfolio.calculateHoldings();
 
   res.send(portfolio);
 });
@@ -48,7 +54,3 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
 module.exports = {
   createTransactionRouter: router,
 };
-
-/* 
-
-*/

@@ -32,16 +32,16 @@
 </template>
 
 <script>
-import geckoClient from "../api/coinGecko";
+import geckoClient from '../api/coinGecko';
 
 export default {
-  name: "AddCryptoForm",
+  name: 'AddCryptoForm',
 
-  props: ["show", "portfolioName"],
+  props: ['show', 'portfolioName', 'portfolioHoldings'],
 
   data() {
     return {
-      search: "",
+      search: '',
       result: null,
       error: null,
       success: '',
@@ -51,10 +51,10 @@ export default {
 
   methods: {
     addHolding() {
-      this.$emit("add-holding", {
+      this.$emit('add-holding', {
         coinName: this.result.id,
         coinSymbol: this.result.symbol,
-        imgUrl: this.result.image.small || ''
+        imgUrl: this.result.image.small || '',
       });
       const successMsg = `${this.result.name} added into portfolio`;
       this.clearSearch();
@@ -65,7 +65,7 @@ export default {
     },
 
     async doSearch() {
-      this.success = ''
+      this.success = '';
       this.error = null;
       this.result = null;
       this.loading = true;
@@ -75,7 +75,16 @@ export default {
         );
         console.log(res.data);
         this.loading = false;
-        this.result = res.data;
+
+        //check for duplicates
+        const i = this.portfolioHoldings.findIndex(
+          (el) => el.coinSymbol === res.data.symbol
+        );
+        if (i > -1) {
+          this.error = `${res.data.name} is already in your portfolio`;
+        } else {
+          this.result = res.data;
+        }
       } catch (err) {
         this.loading = false;
         this.error = `Could not find coin with name '${this.search}'`;
