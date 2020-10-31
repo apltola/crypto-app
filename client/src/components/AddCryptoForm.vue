@@ -6,7 +6,7 @@
         <input
           type="text"
           v-model="search"
-          placeholder="Search with coin name"
+          placeholder="Search coin name"
           class="search-input"
         />
         <button type="submit" class="submit">Search</button>
@@ -125,7 +125,7 @@ export default {
 .search-form {
   padding-top: 10px;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   align-items: stretch;
 }
 
@@ -211,5 +211,16 @@ export default {
 .fade-leave-active {
   transition: opacity 150ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
   opacity: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .add-crypto {
+    padding: 15px 10px;
+  }
+
+  .search-input {
+    padding: 3px 5px;
+    max-width: 130px;
+  }
 }
 </style>

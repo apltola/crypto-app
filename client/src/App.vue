@@ -98,6 +98,16 @@ body {
     );
     color: #ffffff;
   }
+
+  @media screen and (max-width: 600px) {
+    .app-content {
+      padding: 20px 5px 80px;
+    }
+
+    .card {
+      width: calc(100vw - 10px);
+    }
+  }
 }
 
 /* const iosColors = {

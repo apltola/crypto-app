@@ -268,20 +268,8 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-  /*   .title-row > div:nth-last-child(1) {
-    flex: 2;
-  }
-
-  .title-row > div {
-    flex: 1.5;
-  }
-
-  .title-row .row-left {
-    flex: 1;
-  } */
-
   .add-button {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .add-button:hover {

@@ -210,9 +210,9 @@ h2 {
   outline: none;
   opacity: 0.8;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   padding: 3px;
-  margin: 0 10px;
+  margin: 0 15px;
   transition: all 150ms cubic-bezier(0.47, 0, 0.745, 0.715);
 }
 
@@ -290,9 +290,14 @@ h2 {
 }
 
 @media screen and (max-width: 600px) {
+  .content {
+    padding: 20px 20px 40px;
+  }
+
   input,
   select {
     font-size: 16px;
+    max-width: 135px;
   }
 }
 </style>

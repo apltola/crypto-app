@@ -10,7 +10,7 @@
     <div class="holding">
       <div class="holding-value">{{ holdingValue }}</div>
       <div class="holding-quantity">
-        {{ holding.quantity.toFixed(8) }} {{ holding.coinSymbol }}
+        {{ holding.quantity.toFixed(8) }}
       </div>
     </div>
     <div>
@@ -20,7 +20,7 @@
           query: { coin: holding.coinName, symbol: holding.coinSymbol },
         }"
       >
-        <button class="button mobile-only">Add</button>
+        <button class="button add-button mobile-only">Add</button>
         <button class="button hide-mobile">Add Transaction</button>
       </router-link>
       <button @click="deleteHolding" class="button delete">
@@ -114,11 +114,11 @@ export default {
 @media screen and (max-width: 600px) {
   .price,
   .holding-value {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .holding-quantity {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .hide-mobile {
@@ -130,7 +130,9 @@ export default {
   }
 
   .row > div:nth-last-child(1) {
-    justify-content: space-around;
+    flex-direction: column;
+    align-content: stretch;
+    align-items: stretch;
   }
 
   .coin {
@@ -139,6 +141,15 @@ export default {
 
   .img {
     height: 20px;
+  }
+
+  .delete {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .add-button {
+    width: 100%;
   }
 }
 </style>
