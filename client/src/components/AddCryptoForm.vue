@@ -9,8 +9,8 @@
           placeholder="Search with coin name"
           class="search-input"
         />
-        <button type="submit">Search</button>
-        <button type="button" @click="clearSearch">Clear Search</button>
+        <button type="submit" class="submit">Search</button>
+        <button type="button" @click="clearSearch" class="clear">Clear</button>
       </form>
       <div class="results">
         <div v-if="loading">loading...</div>
@@ -124,10 +124,35 @@ export default {
 
 .search-form {
   padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.search-form button {
+  font-size: 16px;
+  margin-left: 10px;
 }
 
 .search-input {
   font-size: 16px;
+  padding: 3px 10px;
+}
+
+.submit {
+  background-color: #00cdac;
+  border: 1px solid #00cdac;
+  color: white;
+  padding: 0 15px;
+  border-radius: 5px;
+}
+
+.clear {
+  background-color: #f3b75e;
+  border: 1px solid #f3b75e;
+  color: white;
+  padding: 0 15px;
+  border-radius: 5px;
 }
 
 .results {

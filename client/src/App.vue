@@ -5,7 +5,7 @@
       <router-view />
     </main>
     <footer class="app-footer">
-      <div>this is the footer</div>
+      <div>© allu 2020</div>
       <!-- <div>
         {{ JSON.stringify(this.$store.state.currentUser) }}
       </div> -->

@@ -202,7 +202,7 @@ export default {
 
 <style scoped>
 .holdings {
-  padding: 20px 30px 35px;
+  padding: 20px 30px 45px;
 }
 
 .header-right {
