@@ -8,7 +8,7 @@
     <div class="header-right">
       <div v-if="this.$store.state.currentUser">
         <router-link to="/dashboard" class="dashboard">
-          Go To Dashboard
+          Go To Portfolios
         </router-link>
         <button @click="logout">
           Logout {{ this.$store.state.currentUser.username }}

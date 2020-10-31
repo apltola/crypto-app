@@ -5,7 +5,7 @@
       <div v-if="portfolios.length === 0" class="no-portfolios">
         {{ noPortfoliosMessage || 'Loading...' }}
       </div>
-      <transition-group v-else name="list">
+      <transition-group v-else appear name="list">
         <Portfolio
           v-for="pf in portfolios"
           :key="pf.id"

@@ -54,7 +54,8 @@ body {
     padding: 20px;
   }
 
-  button {
+  button,
+  select {
     cursor: pointer;
   }
 
@@ -70,6 +71,32 @@ body {
 
   a {
     text-decoration: none;
+  }
+
+  .card {
+    width: calc(100vw - 40px);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+      0 15px 40px rgba(166, 173, 201, 0.2);
+  }
+
+  .card-header {
+    display: flex;
+    flex-flow: row nowrap;
+    text-align: left;
+    padding: 20px 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-image: linear-gradient(
+      -225deg,
+      #3d4e81 0%,
+      #5753c9 48%,
+      #6e7ff3 100%
+    );
+    color: #ffffff;
   }
 }
 

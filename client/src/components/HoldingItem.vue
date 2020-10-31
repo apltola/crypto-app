@@ -12,7 +12,12 @@
       <div class="holding-quantity">{{ holding.quantity }}</div>
     </div>
     <div>
-      <router-link :to="`/portfolio/${portfolioId}/transaction`">
+      <router-link
+        :to="{
+          path: `/portfolio/${portfolioId}/transaction`,
+          query: { coin: holding.coinName, symbol: holding.coinSymbol },
+        }"
+      >
         <button class="button mobile-only">Add</button>
         <button class="button hide-mobile">Add Transaction</button>
       </router-link>
@@ -31,7 +36,7 @@ export default {
 
   methods: {
     deleteHolding() {
-      this.$emit('delete-holding', this.holding.id);
+      this.$emit('delete-holding', this.holding.id, this.holding.coinSymbol);
     },
   },
 };
@@ -62,7 +67,7 @@ export default {
 
 .img {
   height: 25px;
-  margin-right: 5px;
+  margin-right: 8px;
 }
 
 .price,

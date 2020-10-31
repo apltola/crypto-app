@@ -1,72 +1,76 @@
 const mongoose = require('mongoose');
 
-const holdingSchema = new mongoose.Schema({
-  coinName: {
-    type: String,
-    required: true,
+const holdingSchema = new mongoose.Schema(
+  {
+    coinName: {
+      type: String,
+      required: true,
+    },
+    coinSymbol: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    imgUrl: {
+      type: String,
+    },
+    //transactedWith: [],
   },
-  coinSymbol: {
-    type: String,
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  imgUrl: {
-    type: String,
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
   }
-  //transactedWith: [],
-},
-{
-  toJSON: {
-    transform(doc, ret) {
-      ret.id = ret._id;
-      delete ret._id;
-    },
-  },
-});
+);
 
-const transactionSchema = new mongoose.Schema({
-  type: {
-    type: String, //'buy' or 'sell'
-    required: true,
-  },
-  coinName: {
-    type: String,
-    required: true,
-  },
-  coinSymbol: {
-    type: String,
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  boughtWith: {
-    type: String,
-  },
-  soldWith: {
-    type: String,
-  },
-  pricePerCoin: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: mongoose.Schema.Types.Date,
-  },
-},
-{
-  toJSON: {
-    transform(doc, ret) {
-      ret.id = ret._id;
-      delete ret._id;
+const transactionSchema = new mongoose.Schema(
+  {
+    type: {
+      type: String, //'buy' or 'sell'
+      required: true,
+    },
+    coinName: {
+      type: String,
+      required: true,
+    },
+    coinSymbol: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    boughtWith: {
+      type: String,
+    },
+    soldWith: {
+      type: String,
+    },
+    pricePerCoin: {
+      type: Number,
+      required: true,
+    },
+    date: {
+      type: mongoose.Schema.Types.Date,
     },
   },
-});
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
+);
 
 const portfolioSchema = new mongoose.Schema(
   {
@@ -100,6 +104,7 @@ portfolioSchema.methods.calculateHoldings = async function () {
           coinName: acc.coinName,
           coinSymbol: acc.coinSymbol,
           quantity: acc.quantity,
+          //imgUrl: acc.imgUrl,
           //transactedWith: [acc.boughtWith || acc.soldWith],
         },
       ];
@@ -115,6 +120,7 @@ portfolioSchema.methods.calculateHoldings = async function () {
           coinName: cur.coinName,
           coinSymbol: cur.coinSymbol,
           quantity: cur.quantity,
+          //imgUrl: cur.imgUrl,
           //transactedWith: [cur.boughtWith || cur.soldWith],
         },
       ];
@@ -137,9 +143,7 @@ portfolioSchema.methods.calculateHoldings = async function () {
         coinName: this.transactions[0].coinName,
         coinSymbol: this.transactions[0].coinSymbol,
         quantity: this.transactions[0].quantity,
-        /* transactedWith: [
-          this.transactions[0].boughtWith || this.transactions[0].soldWith,
-        ], */
+        //imgUrl: this.transactions[0].imgUrl,y
       },
     ]);
   } else {

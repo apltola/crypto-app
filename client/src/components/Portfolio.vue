@@ -1,6 +1,6 @@
 <template>
-  <article class="portfolio" v-if="portfolio && coinPrices">
-    <header class="header">
+  <article class="portfolio card" v-if="portfolio && coinPrices">
+    <header class="card-header">
       <div class="header-left">
         <div class="portfolio-title">
           {{ portfolio.name || '' }}
@@ -99,9 +99,9 @@ export default {
       this.$emit('update-portfolio', res.data);
     },
 
-    async deleteHolding(id) {
+    async deleteHolding(id, symbol) {
       const res = await axios.delete(
-        `/api/portfolio/${this.portfolio.id}/holding/${id}`
+        `/api/portfolio/${this.portfolio.id}/holding/${symbol}/${id}`
       );
       this.$emit('update-portfolio', res.data);
     },
@@ -216,34 +216,8 @@ export default {
 </script>
 
 <style scoped>
-.portfolio {
-  margin: 0;
-  width: calc(100vw - 40px);
-  max-width: 800px;
-  text-align: left;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
-    0 15px 40px rgba(166, 173, 201, 0.2);
-}
-
 .holdings {
   padding: 20px 30px 35px;
-}
-
-.header {
-  display: flex;
-  flex-flow: row nowrap;
-  text-align: left;
-  padding: 20px 30px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-image: linear-gradient(
-    -225deg,
-    #3d4e81 0%,
-    #5753c9 48%,
-    #6e7ff3 100%
-  );
-  color: #ffffff;
 }
 
 .header-right {
