@@ -100,6 +100,10 @@ body {
   }
 
   @media screen and (max-width: 600px) {
+    h2 {
+      font-size: 20px;
+    }
+
     .app-content {
       padding: 20px 5px 80px;
     }

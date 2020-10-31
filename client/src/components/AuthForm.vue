@@ -10,9 +10,9 @@
       />
       <label for="password">Password</label>
       <input type="password" name="password" v-model="password" />
-      <label v-if="authType === 'register'" for="confirmpw"
-        >Confirm Password</label
-      >
+      <label v-if="authType === 'register'" for="confirmpw">
+        Confirm Password
+      </label>
       <input
         v-if="authType === 'register'"
         type="password"
@@ -32,28 +32,23 @@
           {{ err }}
         </div>
       </div>
-      <!-- <div>
-        <div>username {{ JSON.stringify(username, null, 2) }}</div>
-        <div>password {{ JSON.stringify(password, null, 2) }}</div>
-        <div>confirm {{ JSON.stringify(confirmPw, null, 2) }}</div>
-      </div> -->
     </form>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "AuthForm",
+  name: 'AuthForm',
 
-  props: ["authType"],
+  props: ['authType'],
 
   data() {
     return {
-      username: "",
-      password: "",
-      confirmPw: "",
+      username: '',
+      password: '',
+      confirmPw: '',
       errors: [],
     };
   },
@@ -62,17 +57,17 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
       this.errors = [];
-      if (this.authType === "register" && this.password !== this.confirmPw) {
+      if (this.authType === 'register' && this.password !== this.confirmPw) {
         this.errors = ["passwords don't match"];
         return;
       }
 
       const user = { username: this.username, password: this.password };
       let res = null;
-      if (this.authType === "register") {
-        res = await this.$store.dispatch("register", user);
+      if (this.authType === 'register') {
+        res = await this.$store.dispatch('register', user);
       } else {
-        res = await this.$store.dispatch("signin", user);
+        res = await this.$store.dispatch('signin', user);
       }
 
       if (res.errors) {

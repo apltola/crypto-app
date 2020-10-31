@@ -294,10 +294,22 @@ h2 {
     padding: 20px 20px 40px;
   }
 
-  input,
+  .toggle {
+    font-size: 18px;
+  }
+
+  input {
+    font-size: 16px;
+    max-width: 120px;
+  }
+
   select {
     font-size: 16px;
-    max-width: 135px;
+    max-width: 140px;
+  }
+
+  .submit {
+    padding: 10px 40px;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Create New Account</h1>
+    <h2>Create New Account</h2>
     <AuthForm :authType="'register'" />
   </div>
 </template>
