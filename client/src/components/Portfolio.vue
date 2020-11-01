@@ -217,7 +217,7 @@ export default {
   font-size: 16px;
   font-weight: 500;
   border: 2px solid white;
-  border-radius: 4px;
+  border-radius: 15px;
   outline: none;
   padding: 5px 10px;
 }

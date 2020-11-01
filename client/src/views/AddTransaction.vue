@@ -268,7 +268,7 @@ h2 {
 }
 
 .disabled {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .disabled:hover,

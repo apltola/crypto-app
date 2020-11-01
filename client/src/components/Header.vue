@@ -11,7 +11,7 @@
           <router-link to="/dashboard" class="dashboard">
             View Portfolios
           </router-link>
-          <button @click="logout">
+          <button @click="logout" class="logout-button">
             Logout {{ this.$store.state.currentUser.username }}
           </button>
         </div>
@@ -87,7 +87,7 @@ export default {
   border-bottom: 1.5px solid #e1e4e8;
   display: flex;
   flex-flow: row wrap;
-  align-items: baseline;
+  align-items: center;
   padding: 20px;
 }
 
@@ -106,6 +106,24 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.logout-button {
+  border: none;
+  background-image: linear-gradient(
+    -225deg,
+    #3d4e81 0%,
+    #5753c9 48%,
+    #6e7ff3 100%
+  );
+  color: white;
+  font-weight: bold;
+  padding: 7px 20px;
+  transition: all 150ms cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+.logout-button:hover {
+  opacity: 0.8;
 }
 
 .signin,
