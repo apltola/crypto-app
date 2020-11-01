@@ -9,10 +9,20 @@ import {
   faBars,
   faWindowClose,
   faTimes,
+  faCaretUp,
+  faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add([faUserSecret, faTrashAlt, faBars, faWindowClose, faTimes]);
+library.add([
+  faUserSecret,
+  faTrashAlt,
+  faBars,
+  faWindowClose,
+  faTimes,
+  faCaretUp,
+  faCaretDown,
+]);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

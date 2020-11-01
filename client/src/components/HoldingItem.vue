@@ -4,8 +4,25 @@
       <img v-if="holding.imgUrl" :src="holding.imgUrl" class="img" />
       {{ holding.coinSymbol }}
     </div>
-    <div class="price">
-      {{ rate }}
+    <div>
+      <div class="rate">
+        {{ rate }}
+      </div>
+      <div class="rate-change">
+        24h /
+        <span
+          v-if="rateChange"
+          :style="{ color: rateChange >= 0 ? '#53d769' : '#fc3d39' }"
+        >
+          {{ rateChange.toFixed(2) }}%
+          <font-awesome-icon
+            v-if="rateChange >= 0"
+            icon="caret-up"
+            class="caret"
+          />
+          <font-awesome-icon v-else icon="caret-down" class="caret" />
+        </span>
+      </div>
     </div>
     <div class="holding">
       <div class="holding-value">{{ holdingValue }}</div>
@@ -34,7 +51,7 @@
 export default {
   name: 'HoldingItem',
 
-  props: ['holding', 'rate', 'holdingValue', 'portfolioId'],
+  props: ['holding', 'rate', 'rateChange', 'holdingValue', 'portfolioId'],
 
   methods: {
     deleteHolding() {
@@ -45,14 +62,6 @@ export default {
 </script>
 
 <style scoped>
-.row {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  border-bottom: 1px solid #e1e4e8;
-  padding: 10px 5px;
-}
-
 .row > div {
   flex: 1;
 }
@@ -72,21 +81,34 @@ export default {
   margin-right: 8px;
 }
 
-.price,
+.rate,
 .holding-value,
 .holding-quantity {
   font-weight: 500;
 }
 
-.price,
+.rate,
 .holding-value {
   font-size: 16px;
+}
+
+.rate-change {
+  font-size: 14px;
+}
+
+.caret {
+  padding-left: 3px;
 }
 
 .holding-quantity {
   opacity: 0.7;
   font-size: 14px;
   text-transform: uppercase;
+}
+
+.rate-change,
+.holding-quantity {
+  padding-top: 5px;
 }
 
 .coin {
@@ -112,12 +134,16 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-  .price,
+  .rate,
   .holding-value {
     font-size: 12px;
   }
 
   .holding-quantity {
+    font-size: 10px;
+  }
+
+  .rate-change {
     font-size: 10px;
   }
 

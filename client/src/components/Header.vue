@@ -119,11 +119,10 @@ export default {
   color: white;
   font-weight: bold;
   padding: 7px 20px;
-  transition: all 150ms cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 
 .logout-button:hover {
-  opacity: 0.8;
+  background: #00bb9c;
 }
 
 .signin,

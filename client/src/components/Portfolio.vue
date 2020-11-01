@@ -6,7 +6,7 @@
           {{ portfolio.name || '' }}
         </div>
         <div class="portfolio-value">
-          {{ getPortfolioValue() }}
+          {{ calculatePortfolioValue() }}
         </div>
       </div>
       <div class="header-right">
@@ -39,6 +39,7 @@
             :key="holding.id"
             :holding="holding"
             :rate="formatPrice(holding)"
+            :rateChange="getCryptoRateChange(holding.coinName)"
             :holdingValue="formatHolding(holding)"
             :portfolioId="portfolio.id"
             @delete-holding="deleteHolding"
@@ -55,6 +56,7 @@ import geckoApi from '../api/coinGecko';
 import axios from 'axios';
 import AddCryptoForm from './AddCryptoForm.vue';
 import HoldingItem from './HoldingItem.vue';
+import { getCurrencySymbol, formatNumber } from '../util/portfolio';
 
 export default {
   name: 'Portfolio',
@@ -99,7 +101,7 @@ export default {
       }
     },
 
-    getPortfolioValue() {
+    calculatePortfolioValue() {
       if (!this.coinPrices) {
         return 'loading...';
       }
@@ -113,37 +115,17 @@ export default {
         }
       });
       sum = sum.toFixed(2);
-      sum = this.formatNumber(sum);
+      sum = formatNumber(sum);
 
-      return `${sum} ${this.getCurrencySymbol()}`;
+      return `${sum} ${getCurrencySymbol(this.currency)}`;
     },
 
-    getCurrencySymbol() {
-      switch (this.currency) {
-        case 'eur':
-          return '€';
-        case 'usd':
-          return '$';
-        default:
-          return '';
-      }
-    },
-
-    formatNumber(p) {
-      let val = p.toString();
-      val = val.replace('.', ',');
-      if (val.split(',')[0].length >= 4) {
-        const splitted = val.split(',');
-        const start = splitted[0];
-        const end = splitted[1];
-        let slicePoint = start.length - 3;
-        val = `${start.slice(0, slicePoint)} ${start.slice(
-          slicePoint,
-          start.length
-        )},${end}`;
+    getCryptoRateChange(name) {
+      if (!this.coinPrices || !this.coinPrices[name]) {
+        return '';
       }
 
-      return val;
+      return this.coinPrices[name][`${this.currency}_24h_change`];
     },
 
     formatPrice(holding) {
@@ -151,10 +133,10 @@ export default {
         return '';
       }
 
-      let price = this.formatNumber(
+      let price = formatNumber(
         this.coinPrices[holding.coinName][this.currency]
       );
-      return `${price} ${this.getCurrencySymbol()}`;
+      return `${price} ${getCurrencySymbol(this.currency)}`;
     },
 
     formatHolding(holding) {
@@ -166,8 +148,8 @@ export default {
       let value = this.coinPrices[coinName][this.currency] * quantity;
       //this.portfolioValue = this.portfolioValue + value;
       value = value.toFixed(2);
-      value = this.formatNumber(value);
-      return `${value} ${this.getCurrencySymbol()}`;
+      value = formatNumber(value);
+      return `${value} ${getCurrencySymbol(this.currency)}`;
     },
 
     async fetchCoinPrices() {
@@ -179,7 +161,7 @@ export default {
 
       coins = encodeURIComponent(coins);
 
-      const url = `/simple/price?ids=${coins}&vs_currencies=eur,usd`;
+      const url = `/simple/price?ids=${coins}&vs_currencies=eur,usd&include_24hr_change=true`;
       const res = await geckoApi.get(url);
       this.coinPrices = res.data;
     },
@@ -241,7 +223,14 @@ export default {
   flex-flow: row nowrap;
   align-items: center;
   border-bottom: 1px solid #e1e4e8;
-  padding: 10px 0;
+}
+
+.title-row {
+  padding: 10px 5px;
+}
+
+.data-row {
+  padding: 15px 5px;
 }
 
 .title-row > div {
@@ -284,6 +273,12 @@ export default {
 
   .header {
     padding: 20px 15px;
+  }
+
+  .title-row,
+  .data-row {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 </style>
