@@ -8,6 +8,9 @@
     <div class="header-right">
       <div v-if="this.$store.state.currentUser">
         <div class="hide-mobile">
+          <router-link to="/account" class="dashboard">
+            Account
+          </router-link>
           <router-link to="/dashboard" class="dashboard">
             View Portfolios
           </router-link>
@@ -127,7 +130,7 @@ export default {
 
 .signin,
 .dashboard {
-  margin: 0 20px;
+  margin-right: 20px;
 }
 
 .show-mobile {

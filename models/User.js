@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const { randomBytes, scrypt } = require('crypto');
 const { promisify } = require('util');
-const uniqueValidator = require('mongoose-unique-validator');
 
 const scryptAsync = promisify(scrypt);
 

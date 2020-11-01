@@ -111,6 +111,10 @@ body {
     .card {
       width: calc(100vw - 10px);
     }
+
+    .card-header {
+      padding: 20px 15px;
+    }
   }
 }
 

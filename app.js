@@ -14,6 +14,7 @@ const { showUserRouter } = require('./routes/auth/showUser');
 const { createPortfolioRouter } = require('./routes/portfolio/new');
 const { showPortfolioRouter } = require('./routes/portfolio/show');
 const { deleteHoldingRouter } = require('./routes/holding/delete');
+const { deleteUserRouter } = require('./routes/auth/delete');
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,6 +34,7 @@ app.use(signinRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
 app.use(showUserRouter);
+app.use(deleteUserRouter);
 
 app.use(indexPortfolioRouter);
 app.use(createPortfolioRouter);

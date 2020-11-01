@@ -178,8 +178,6 @@ export default {
   },
 
   async created() {
-    console.log(this.$route.params);
-    console.log(this.$route.query);
     const res = await geckoApi.get('/simple/supported_vs_currencies');
     this.currencies = res.data.map((v) => v.toUpperCase()).sort();
   },

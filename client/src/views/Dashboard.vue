@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="this.$store.state.currentUser">
     <h1>Your portfolios</h1>
     <div class="grid">
       <div v-if="portfolios.length === 0" class="no-portfolios">
@@ -46,7 +46,7 @@ export default {
   },
 
   mounted() {
-    if (!this.$store.state.currentUser) {
+    if (this.$store.state.currentUser === null) {
       router.push('/');
     }
   },
