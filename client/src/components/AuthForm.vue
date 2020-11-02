@@ -117,11 +117,12 @@ export default {
   }
 
   .submit {
-    margin-top: 15px;
+    margin: 35px auto 0 auto;
+    width: 75%;
   }
 
   .error {
-    padding-top: 10px;
+    padding-top: 20px;
     color: #fc3d39;
   }
 }

@@ -99,6 +99,37 @@ body {
     color: #ffffff;
   }
 
+  .submit {
+    text-transform: capitalize;
+    padding: 7px 30px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: none;
+    outline: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #00cdac;
+    transition: all 150ms cubic-bezier(0.47, 0, 0.745, 0.715);
+  }
+
+  .submit:hover {
+    background-color: #00bb9c;
+  }
+
+  .submit:active {
+    background-color: #00ad91;
+  }
+
+  .disabled {
+    opacity: 0.5;
+  }
+
+  .disabled:hover,
+  .disabled:active {
+    background-color: #00cdac;
+  }
+
   @media screen and (max-width: 600px) {
     h2 {
       font-size: 20px;
@@ -114,6 +145,10 @@ body {
 
     .card-header {
       padding: 20px 15px;
+    }
+
+    .submit {
+      padding: 10px 40px;
     }
   }
 }

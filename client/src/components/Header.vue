@@ -41,8 +41,11 @@
           </button>
         </div>
         <div v-if="this.$store.state.currentUser" class="mobile-menu-links">
+          <router-link to="/account">
+            <button @click="closeMenu">Account</button>
+          </router-link>
           <router-link to="/dashboard">
-            <button @click="closeMenu">View Portfolios</button>
+            <button @click="closeMenu">Portfolios</button>
           </router-link>
           <button @click="logout">
             Logout {{ this.$store.state.currentUser.username }}

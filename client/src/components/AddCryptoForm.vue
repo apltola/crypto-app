@@ -9,7 +9,7 @@
           placeholder="Search coin name"
           class="search-input"
         />
-        <button type="submit" class="submit">Search</button>
+        <button type="submit" class="search">Search</button>
         <button type="button" @click="clearSearch" class="clear">Clear</button>
       </form>
       <div class="results">
@@ -139,12 +139,12 @@ export default {
   padding: 3px 10px;
 }
 
-.submit {
+.search {
   background-color: #00cdac;
   border: 1px solid #00cdac;
   color: white;
   padding: 0 15px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .clear {
@@ -152,7 +152,7 @@ export default {
   border: 1px solid #f3b75e;
   color: white;
   padding: 0 15px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .results {

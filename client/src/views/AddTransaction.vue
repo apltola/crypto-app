@@ -73,12 +73,6 @@
                 </button>
               </div>
             </form>
-            <div style="margin-top: 40px">
-              selectedCurrency: {{ JSON.stringify(selectedCurrency, null, 2) }}
-            </div>
-            <div>pricePerCoin: {{ JSON.stringify(pricePerCoin, null, 2) }}</div>
-            <div>boughtWith: {{ JSON.stringify(boughtWith, null, 2) }}</div>
-            <div>soldWith: {{ JSON.stringify(soldWith, null, 2) }}</div>
           </div>
         </div>
       </transition>
@@ -243,7 +237,7 @@ h2 {
   padding-top: 30px;
 }
 
-.submit {
+/* .submit {
   text-transform: capitalize;
   padding: 7px 30px;
   border: none;
@@ -272,7 +266,7 @@ h2 {
 .disabled:hover,
 .disabled:active {
   background-color: #00cdac;
-}
+} */
 
 .crypto-name {
   text-transform: capitalize;
@@ -307,8 +301,8 @@ h2 {
     max-width: 150px;
   }
 
-  .submit {
+  /* .submit {
     padding: 10px 40px;
-  }
+  } */
 }
 </style>
