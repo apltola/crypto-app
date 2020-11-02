@@ -22,8 +22,8 @@ export default {
   components: { TradingVue },
   methods: {
     onResize(event) {
-      this.width = window.innerWidth - 60;
-      this.height = window.innerHeight - 500;
+      this.width = window.innerWidth - (window.innerWidth / 100) * 3;
+      this.height = window.innerHeight - (window.innerHeight / 100) * 20;
     },
   },
   mounted() {
@@ -35,8 +35,8 @@ export default {
   data() {
     return {
       chart: Data,
-      width: window.innerWidth - 60,
-      height: window.innerHeight - 500,
+      width: window.innerWidth - (window.innerWidth / 100) * 3,
+      height: window.innerHeight - (window.innerHeight / 100) * 20,
       colors: {
         colorBack: '#fff',
         colorGrid: '#eee',
@@ -50,10 +50,6 @@ export default {
 <style scoped>
 .container {
   border: 1px solid #e1e4e8;
-  margin-top: 40px;
-}
-
-.container > div {
-  flex: 1;
+  margin-top: 1.5vh;
 }
 </style>
