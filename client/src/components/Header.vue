@@ -8,11 +8,11 @@
     <div class="header-right">
       <div v-if="this.$store.state.currentUser">
         <div class="hide-mobile">
-          <router-link to="/account" class="header-link">
-            Account
-          </router-link>
           <router-link to="/dashboard" class="header-link">
             View Portfolios
+          </router-link>
+          <router-link to="/account" class="header-link">
+            Account
           </router-link>
           <button @click="logout" class="logout-button">
             Logout {{ this.$store.state.currentUser.username }}
@@ -41,11 +41,11 @@
           </button>
         </div>
         <div v-if="this.$store.state.currentUser" class="mobile-menu-links">
-          <router-link to="/account">
-            <button @click="closeMenu">Account</button>
-          </router-link>
           <router-link to="/dashboard">
             <button @click="closeMenu">Portfolios</button>
+          </router-link>
+          <router-link to="/account">
+            <button @click="closeMenu">Account</button>
           </router-link>
           <button @click="logout">
             Logout {{ this.$store.state.currentUser.username }}

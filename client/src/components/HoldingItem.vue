@@ -2,7 +2,9 @@
   <div class="row data-row">
     <div class="coin row-left">
       <img v-if="holding.imgUrl" :src="holding.imgUrl" class="img" />
-      {{ holding.coinSymbol }}
+      <router-link :to="{ path: `/chart/crypto/${holding.coinName}` }">
+        {{ holding.coinSymbol }}
+      </router-link>
     </div>
     <div>
       <div class="rate">

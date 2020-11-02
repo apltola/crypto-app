@@ -46,6 +46,11 @@ const routes = [
     name: 'Account',
     component: () => import('../views/Account.vue'),
   },
+  {
+    path: '/chart/crypto/:coinId',
+    name: 'CryptoChart',
+    component: () => import('../views/CryptoChart.vue'),
+  },
 ];
 
 const router = new VueRouter({
