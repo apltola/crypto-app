@@ -154,7 +154,7 @@ body {
     }
 
     .submit {
-      padding: 10px 40px;
+      padding: 6px 40px;
     }
   }
 }

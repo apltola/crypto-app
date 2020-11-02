@@ -75,4 +75,17 @@ input {
   border-bottom: 2px solid #e1e4e8;
   outline: none;
 }
+
+@media screen and (max-width: 600px) {
+  form {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+  input {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
 </style>
