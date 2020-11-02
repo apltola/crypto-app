@@ -5,7 +5,7 @@ const { User } = require('../../models/User');
 
 const router = express.Router();
 
-router.post('/api/portfolio/:userId', requireAuth, async (req, res) => {
+router.post('/api/portfolio/user/:userId', requireAuth, async (req, res) => {
   const { name } = req.body;
   const portfolio = new Portfolio({
     userId: req.params.userId,

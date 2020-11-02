@@ -57,6 +57,7 @@ body {
   button,
   select {
     cursor: pointer;
+    font-family: inherit;
   }
 
   button.disabled {
@@ -76,7 +77,8 @@ body {
   .card {
     width: calc(100vw - 40px);
     max-width: 800px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     text-align: left;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
@@ -128,6 +130,10 @@ body {
   .disabled:hover,
   .disabled:active {
     background-color: #00cdac;
+  }
+
+  .bold {
+    font-weight: bold;
   }
 
   @media screen and (max-width: 600px) {

@@ -15,6 +15,7 @@ const { createPortfolioRouter } = require('./routes/portfolio/new');
 const { showPortfolioRouter } = require('./routes/portfolio/show');
 const { deleteHoldingRouter } = require('./routes/holding/delete');
 const { deleteUserRouter } = require('./routes/auth/delete');
+const { deletePortfolioRouter } = require('./routes/portfolio/delete');
 
 const app = express();
 app.use(bodyParser.json());
@@ -39,6 +40,7 @@ app.use(deleteUserRouter);
 app.use(indexPortfolioRouter);
 app.use(createPortfolioRouter);
 app.use(showPortfolioRouter);
+app.use(deletePortfolioRouter);
 app.use(createTransactionRouter);
 app.use(createHoldingRouter);
 app.use(deleteHoldingRouter);

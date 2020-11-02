@@ -1,5 +1,9 @@
 <template>
-  <article class="portfolio card" v-if="portfolio && coinPrices">
+  <article
+    class="card"
+    v-if="portfolio && coinPrices"
+    :style="{ marginTop: addMargin ? '65px' : '0' }"
+  >
     <header class="card-header">
       <div class="header-left">
         <div class="portfolio-title">
@@ -61,7 +65,7 @@ import { getCurrencySymbol, formatNumber } from '../util/portfolio';
 export default {
   name: 'Portfolio',
 
-  props: ['portfolio'],
+  props: ['portfolio', 'addMargin'],
 
   components: {
     AddCryptoForm,
@@ -183,6 +187,11 @@ export default {
 </script>
 
 <style scoped>
+.portfolio {
+  /* margin-top: 30px;
+  margin-bottom: 30px; */
+}
+
 .holdings {
   padding: 20px 30px 45px;
 }
@@ -201,7 +210,7 @@ export default {
   border: 2px solid white;
   border-radius: 15px;
   outline: none;
-  padding: 5px 10px;
+  padding: 2px 10px;
 }
 
 .add-button:hover {
@@ -259,7 +268,7 @@ export default {
 
 @media screen and (max-width: 600px) {
   .add-button {
-    font-size: 16px;
+    font-size: 13.33px;
   }
 
   .add-button:hover {

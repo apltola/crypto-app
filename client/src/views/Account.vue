@@ -15,7 +15,7 @@
           <div v-for="p in portfolios" :key="p.id" class="portfolio-list-item">
             <div class="row">
               <span>Portfolio Name</span>
-              <span>{{ p.name }}</span>
+              <span class="bold">{{ p.name }}</span>
             </div>
             <div class="holdings-row">
               <div class="holdings-left">{{ p.holdings.length }} holdings</div>
@@ -27,9 +27,12 @@
               </div>
             </div>
             <div class="delete-row">
-              <button class="delete-button" @click="onDeletePortfolio">
+              <button
+                class="delete-button"
+                @click="() => onDeletePortfolio(p.id, p.name)"
+              >
                 {{
-                  deletePortfolioClicked
+                  delPfClicked === p.id
                     ? 'Click Again to Confirm Delete'
                     : 'Delete Portfolio'
                 }}
@@ -52,17 +55,19 @@ export default {
   data() {
     return {
       portfolios: [],
-      deletePortfolioClicked: false,
-      confirmDeletePortfolio: false,
+      delPfClicked: '',
+      confirmDelPf: false,
     };
   },
 
   methods: {
-    onDeletePortfolio() {
-      if (this.deletePortfolioClicked) {
-        console.log('delete portfolio!!');
+    async onDeletePortfolio(id, name) {
+      if (this.delPfClicked !== id) {
+        this.delPfClicked = id;
       } else {
-        this.deletePortfolioClicked = true;
+        console.log('delete ', name);
+        const res = await axios.delete(`/api/portfolio/${id}`);
+        this.portfolios = res.data;
       }
     },
   },
@@ -105,7 +110,7 @@ export default {
 }
 
 .portfolio-list-item {
-  padding: 15px 5px;
+  padding: 20px 5px;
   border-bottom: 1px solid #e1e4e8;
 }
 
@@ -156,11 +161,26 @@ export default {
   border-radius: 5px;
   font-weight: bold;
   padding: 5px 15px;
+  transition: background 100ms ease-in-out;
+}
+
+.delete-button:hover {
+  color: white;
+  background: #fc3d39;
+}
+
+.delete-button:active {
+  background: #e43633;
 }
 
 @media screen and (max-width: 600px) {
   .content {
     padding: 20px 20px 40px;
+  }
+  .delete-button:hover,
+  .delete-button:active {
+    background: white;
+    color: #fc3d39;
   }
 }
 </style>

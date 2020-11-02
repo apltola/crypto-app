@@ -122,7 +122,7 @@ export default {
   box-shadow: none;
   border: 1px solid #e1e4e8;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 3px 10px;
 }
 
 .delete {

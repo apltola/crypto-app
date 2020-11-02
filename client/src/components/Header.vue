@@ -8,10 +8,10 @@
     <div class="header-right">
       <div v-if="this.$store.state.currentUser">
         <div class="hide-mobile">
-          <router-link to="/account" class="dashboard">
+          <router-link to="/account" class="header-link">
             Account
           </router-link>
-          <router-link to="/dashboard" class="dashboard">
+          <router-link to="/dashboard" class="header-link">
             View Portfolios
           </router-link>
           <button @click="logout" class="logout-button">
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div v-else class="hide-mobile">
-        <router-link to="/auth/signin" class="signin">
+        <router-link to="/auth/signin" class="header-link">
           Sign In
         </router-link>
         <router-link to="/auth/register" class="register">
@@ -116,23 +116,14 @@ export default {
 
 .logout-button {
   border: none;
-  background-image: linear-gradient(
-    -225deg,
-    #3d4e81 0%,
-    #5753c9 48%,
-    #6e7ff3 100%
-  );
-  color: white;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
   font-weight: bold;
-  padding: 7px 20px;
 }
 
-.logout-button:hover {
-  background: #00bb9c;
-}
-
-.signin,
-.dashboard {
+.header-link {
   margin-right: 20px;
 }
 
@@ -142,6 +133,7 @@ export default {
 
 .mobile-menu {
   position: absolute;
+  z-index: 11;
   min-height: 100px;
   padding: 20px;
   top: 0;
