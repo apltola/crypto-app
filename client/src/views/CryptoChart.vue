@@ -1,15 +1,18 @@
 <template>
   <!-- TradingVueJs 101 (example from 'Getting Started' ) -->
-  <div class="container">
-    <trading-vue
-      :data="chart"
-      :width="this.width"
-      :height="this.height"
-      :color-back="colors.colorBack"
-      :color-grid="colors.colorGrid"
-      :color-text="colors.colorText"
-    >
-    </trading-vue>
+  <div>
+    <div class="container">
+      <trading-vue
+        :data="chart"
+        :width="this.width"
+        :height="this.height"
+        :color-back="colors.colorBack"
+        :color-grid="colors.colorGrid"
+        :color-text="colors.colorText"
+      >
+      </trading-vue>
+    </div>
+    <div>jeejeejeejeejee</div>
   </div>
 </template>
 
@@ -22,8 +25,8 @@ export default {
   components: { TradingVue },
   methods: {
     onResize(event) {
-      this.width = window.innerWidth - (window.innerWidth / 100) * 3;
-      this.height = window.innerHeight - (window.innerHeight / 100) * 20;
+      this.width = window.innerWidth - (window.innerWidth / 100) * 5;
+      this.height = window.innerHeight - (window.innerHeight / 100) * 35;
     },
   },
   mounted() {
@@ -35,8 +38,8 @@ export default {
   data() {
     return {
       chart: Data,
-      width: window.innerWidth - (window.innerWidth / 100) * 3,
-      height: window.innerHeight - (window.innerHeight / 100) * 20,
+      width: window.innerWidth - (window.innerWidth / 100) * 5,
+      height: window.innerHeight - (window.innerHeight / 100) * 35,
       colors: {
         colorBack: '#fff',
         colorGrid: '#eee',
@@ -44,6 +47,8 @@ export default {
       },
     };
   },
+
+  async created() {},
 };
 </script>
 

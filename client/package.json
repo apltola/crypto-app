@@ -12,6 +12,7 @@
     "@fortawesome/vue-fontawesome": "^2.0.0",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "date-fns": "^2.16.1",
     "trading-vue-js": "^0.8.0",
     "vue": "^2.6.11",
     "vue-fragment": "^1.5.1",
