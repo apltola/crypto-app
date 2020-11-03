@@ -91,7 +91,7 @@ export default {
 }
 
 .container {
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .username {
@@ -110,7 +110,7 @@ export default {
 }
 
 .portfolio-list-item {
-  padding: 20px 5px;
+  padding: 20px 0;
   border-bottom: 1px solid #e1e4e8;
 }
 

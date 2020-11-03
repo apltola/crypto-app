@@ -41,6 +41,9 @@
           </button>
         </div>
         <div v-if="this.$store.state.currentUser" class="mobile-menu-links">
+          <router-link to="/">
+            <button @click="closeMenu">Home</button>
+          </router-link>
           <router-link to="/dashboard">
             <button @click="closeMenu">Portfolios</button>
           </router-link>
@@ -53,7 +56,7 @@
         </div>
         <div v-else class="mobile-menu-links">
           <router-link to="/auth/signin">
-            <button @click="closeMenu">Sing In</button>
+            <button @click="closeMenu">Sign In</button>
           </router-link>
           <router-link to="/auth/register">
             <button @click="closeMenu">Create Account</button>
@@ -133,7 +136,7 @@ export default {
 
 .mobile-menu {
   position: absolute;
-  z-index: 11;
+  z-index: 1111;
   min-height: 100px;
   padding: 20px;
   top: 0;
@@ -217,10 +220,6 @@ export default {
     padding: 5px 8px;
     border: none;
     border-radius: 0;
-  }
-
-  .menu-button:hover {
-    background: #00bb9c;
   }
 }
 </style>

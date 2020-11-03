@@ -16,6 +16,7 @@ const { showPortfolioRouter } = require('./routes/portfolio/show');
 const { deleteHoldingRouter } = require('./routes/holding/delete');
 const { deleteUserRouter } = require('./routes/auth/delete');
 const { deletePortfolioRouter } = require('./routes/portfolio/delete');
+const { dailyPriceRouter } = require('./routes/cryptoPrice/daily');
 
 const app = express();
 app.use(bodyParser.json());
@@ -44,6 +45,8 @@ app.use(deletePortfolioRouter);
 app.use(createTransactionRouter);
 app.use(createHoldingRouter);
 app.use(deleteHoldingRouter);
+
+app.use(dailyPriceRouter);
 
 app.get('/api/test', (req, res) => {
   res.send(

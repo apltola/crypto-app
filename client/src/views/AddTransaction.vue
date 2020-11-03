@@ -180,7 +180,7 @@ export default {
 
 <style scoped>
 .container {
-  padding-top: 20px;
+  padding-top: 40px;
   overflow: visible;
 }
 

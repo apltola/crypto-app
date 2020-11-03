@@ -114,7 +114,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  padding: 30px 0px;
+  padding: 40px 0px;
   overflow: visible;
 }
 

@@ -46,6 +46,7 @@
             :rateChange="getCryptoRateChange(holding.coinName)"
             :holdingValue="formatHolding(holding)"
             :portfolioId="portfolio.id"
+            :currency="currency"
             @delete-holding="deleteHolding"
           />
         </div>

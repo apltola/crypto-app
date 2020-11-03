@@ -47,7 +47,7 @@ const routes = [
     component: () => import('../views/Account.vue'),
   },
   {
-    path: '/chart/crypto/:coinId',
+    path: '/chart/crypto',
     name: 'CryptoChart',
     component: () => import('../views/CryptoChart.vue'),
   },

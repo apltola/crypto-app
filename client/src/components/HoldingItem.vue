@@ -2,7 +2,16 @@
   <div class="row data-row">
     <div class="coin row-left">
       <img v-if="holding.imgUrl" :src="holding.imgUrl" class="img" />
-      <router-link :to="{ path: `/chart/crypto/${holding.coinName}` }">
+      <router-link
+        :to="{
+          path: `/chart/crypto`,
+          query: {
+            coin: holding.coinName,
+            symbol: holding.coinSymbol,
+            market: currency,
+          },
+        }"
+      >
         {{ holding.coinSymbol }}
       </router-link>
     </div>
@@ -53,7 +62,14 @@
 export default {
   name: 'HoldingItem',
 
-  props: ['holding', 'rate', 'rateChange', 'holdingValue', 'portfolioId'],
+  props: [
+    'holding',
+    'rate',
+    'rateChange',
+    'holdingValue',
+    'portfolioId',
+    'currency',
+  ],
 
   methods: {
     deleteHolding() {
