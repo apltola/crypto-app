@@ -42,9 +42,9 @@ const routes = [
     component: () => import('../views/AddPortfolio.vue'),
   },
   {
-    path: '/account',
-    name: 'Account',
-    component: () => import('../views/Account.vue'),
+    path: '/manage',
+    name: 'Manage',
+    component: () => import('../views/ManagePortfolios.vue'),
   },
   {
     path: '/chart/crypto',

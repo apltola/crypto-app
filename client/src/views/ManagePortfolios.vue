@@ -1,6 +1,6 @@
 <template>
   <div v-if="this.$store.state.currentUser">
-    <h2>Your Account</h2>
+    <h2>Manage Portfolios</h2>
     <div class="container">
       <div class="card" style="max-width: 500px">
         <div class="card-header" style="justify-content: center">
@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="content">
-          <div class="portfolio-label">Portfolios</div>
+          <!-- <div class="portfolio-label">Portfolios</div> -->
           <div v-for="p in portfolios" :key="p.id" class="portfolio-list-item">
             <div class="row">
               <span>Portfolio Name</span>
@@ -50,7 +50,7 @@ import router from '../router';
 import axios from 'axios';
 
 export default {
-  name: 'Account',
+  name: 'ManagePortfolios',
 
   data() {
     return {
@@ -91,7 +91,7 @@ export default {
 }
 
 .container {
-  padding-top: 40px;
+  padding-top: 30px;
 }
 
 .username {
@@ -112,6 +112,10 @@ export default {
 .portfolio-list-item {
   padding: 20px 0;
   border-bottom: 1px solid #e1e4e8;
+}
+
+.portfolio-list-item:first-child {
+  border-top: 1px solid #e1e4e8;
 }
 
 .row {

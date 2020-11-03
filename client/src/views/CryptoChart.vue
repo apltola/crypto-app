@@ -2,10 +2,18 @@
   <!-- TradingVueJs 101 (example from 'Getting Started' ) -->
   <div class="wrap">
     <CricleSpin v-if="loading" :size="'80px'" />
-    <div class="title">
-      <span class="crypto-name">{{ $route.query.coin }}</span>
-      <span class="currency">({{ $route.query.market }})</span>
-      <span>{{ chartTitle }}</span>
+    <div class="header">
+      <div>
+        <router-link to="/dashboard">
+          <font-awesome-icon icon="long-arrow-alt-left" /> Back to Portfolios
+        </router-link>
+      </div>
+      <div class="title">
+        <span class="crypto-name">{{ $route.query.coin }}</span>
+        <span class="currency">({{ $route.query.market }})</span>
+        <span>{{ chartTitle }}</span>
+      </div>
+      <div></div>
     </div>
     <div class="container">
       <trading-vue
@@ -99,6 +107,19 @@ export default {
 .container {
   border: 1px solid #e1e4e8;
   margin-top: 1.5vh;
+}
+
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.header > div {
+  flex: 1;
+}
+
+.header > div:nth-child(1) {
+  text-align: left;
 }
 
 .title {

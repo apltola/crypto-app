@@ -180,7 +180,7 @@ export default {
 
 <style scoped>
 .container {
-  padding-top: 40px;
+  padding-top: 30px;
   overflow: visible;
 }
 
@@ -236,37 +236,6 @@ h2 {
   justify-content: center;
   padding-top: 30px;
 }
-
-/* .submit {
-  text-transform: capitalize;
-  padding: 7px 30px;
-  border: none;
-  border-radius: 15px;
-  box-shadow: none;
-  outline: none;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  background-color: #00cdac;
-  transition: all 150ms cubic-bezier(0.47, 0, 0.745, 0.715);
-}
-
-.submit:hover {
-  background-color: #00bb9c;
-}
-
-.submit:active {
-  background-color: #00ad91;
-}
-
-.disabled {
-  opacity: 0.5;
-}
-
-.disabled:hover,
-.disabled:active {
-  background-color: #00cdac;
-} */
 
 .crypto-name {
   text-transform: capitalize;

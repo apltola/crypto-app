@@ -4,8 +4,15 @@
       <div class="hide-mobile"></div>
       <h1>Your portfolios</h1>
       <div class="header-right">
+        <router-link to="/manage">
+          <button class="button">
+            <font-awesome-icon icon="cog" class="icon" />
+          </button>
+        </router-link>
         <router-link to="/new-portfolio">
-          <button class="create-button">+ Create Portfolio</button>
+          <button class="button">
+            <font-awesome-icon icon="plus-square" class="icon" />
+          </button>
         </router-link>
       </div>
     </div>
@@ -93,7 +100,7 @@ export default {
   align-items: center;
 }
 
-.create-button {
+.button {
   border: none;
   background-image: linear-gradient(
     -225deg,
@@ -103,18 +110,26 @@ export default {
   );
   color: white;
   font-weight: bold;
-  padding: 5px 20px;
+  padding: 7px 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
 }
 
-.create-button:hover {
+.button:hover {
   background: #00bb9c;
+}
+
+.icon {
+  font-size: 20px;
 }
 
 .grid {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  padding: 40px 0px;
+  padding: 30px 0px;
   overflow: visible;
 }
 

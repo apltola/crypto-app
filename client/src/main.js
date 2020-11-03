@@ -11,6 +11,9 @@ import {
   faTimes,
   faCaretUp,
   faCaretDown,
+  faLongArrowAltLeft,
+  faPlusSquare,
+  faCog,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -22,6 +25,9 @@ library.add([
   faTimes,
   faCaretUp,
   faCaretDown,
+  faLongArrowAltLeft,
+  faPlusSquare,
+  faCog,
 ]);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
