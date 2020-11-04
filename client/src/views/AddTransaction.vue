@@ -60,8 +60,9 @@
               </div>
               <div class="row">
                 <label for="date">Date</label>
-                <!-- <input type="date" name="date" v-model="date" /> -->
+                <input v-if="mobile" type="date" name="date" v-model="date" />
                 <datepicker
+                  v-else
                   v-model="date"
                   @selected="onDateSelected"
                 ></datepicker>
@@ -89,6 +90,7 @@ import Datepicker from 'vuejs-datepicker';
 import geckoApi from '../api/coinGecko';
 import axios from 'axios';
 import router from '../router';
+import { isMobile } from 'mobile-device-detect';
 
 export default {
   name: 'AddTransaction',
@@ -109,6 +111,7 @@ export default {
       currencies: [],
       selectedCurrency: '',
       date: new Date(),
+      mobile: isMobile,
     };
   },
 
