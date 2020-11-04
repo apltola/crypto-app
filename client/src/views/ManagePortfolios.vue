@@ -11,8 +11,11 @@
           </div>
         </div>
         <div class="content">
-          <!-- <div class="portfolio-label">Portfolios</div> -->
+          <div v-if="portfolios.length === 0" class="empty">
+            No portfolios
+          </div>
           <div
+            v-else
             v-for="(p, idx) in portfolios"
             :key="p.id"
             class="portfolio-list-item"
@@ -164,6 +167,11 @@ export default {
   padding: 30px 40px 40px;
 }
 
+.empty {
+  font-weight: bold;
+  opacity: 0.6;
+}
+
 .portfolio-name-container {
   display: flex;
   align-items: center;
@@ -253,9 +261,9 @@ export default {
 }
 
 .delete-button {
-  border: 2px solid #fc3d39;
+  border: 2px solid var(--iosRed);
   background: white;
-  color: #fc3d39;
+  color: var(--iosRed);
   border-radius: 5px;
   font-weight: bold;
   padding: 5px 15px;
@@ -264,7 +272,7 @@ export default {
 
 .delete-button:hover {
   color: white;
-  background: #fc3d39;
+  background: var(--iosRed);
 }
 
 .delete-button:active {
@@ -278,7 +286,7 @@ export default {
   .delete-button:hover,
   .delete-button:active {
     background: white;
-    color: #fc3d39;
+    color: var(--iosRed);
   }
 }
 </style>

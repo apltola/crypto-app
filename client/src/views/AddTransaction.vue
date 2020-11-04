@@ -118,7 +118,6 @@ export default {
   methods: {
     async handleSubmit(e) {
       e.preventDefault();
-
       try {
         const res = await axios.post('/api/transaction', {
           portfolioId: this.$route.params.portfolioId,

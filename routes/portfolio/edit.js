@@ -1,9 +1,10 @@
 const express = require('express');
+const requireAuth = require('../../middlewares/requireAuth');
 const { Portfolio } = require('../../models/Portfolio');
 
 const router = express.Router();
 
-router.put('/api/portfolio/:id', async (req, res) => {
+router.put('/api/portfolio/:id', requireAuth, async (req, res) => {
   const portfolio = await Portfolio.findById(req.params.id);
 
   portfolio.set({

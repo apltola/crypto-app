@@ -59,7 +59,7 @@ const transactionSchema = new mongoose.Schema(
       required: true,
     },
     date: {
-      type: mongoose.Schema.Types.Date,
+      type: Number,
     },
   },
   {
@@ -84,6 +84,11 @@ const portfolioSchema = new mongoose.Schema(
     },
     holdings: [holdingSchema],
     transactions: [transactionSchema],
+    valueHistory: [],
+    defaultFiat: {
+      type: String,
+      default: 'eur',
+    },
   },
   {
     toJSON: {
