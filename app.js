@@ -17,6 +17,7 @@ const { deleteHoldingRouter } = require('./routes/holding/delete');
 const { deleteUserRouter } = require('./routes/auth/delete');
 const { deletePortfolioRouter } = require('./routes/portfolio/delete');
 const { dailyPriceRouter } = require('./routes/cryptoPrice/daily');
+const { editPortfolioRouter } = require('./routes/portfolio/edit');
 
 const app = express();
 app.use(bodyParser.json());
@@ -41,6 +42,7 @@ app.use(deleteUserRouter);
 app.use(indexPortfolioRouter);
 app.use(createPortfolioRouter);
 app.use(showPortfolioRouter);
+app.use(editPortfolioRouter);
 app.use(deletePortfolioRouter);
 app.use(createTransactionRouter);
 app.use(createHoldingRouter);

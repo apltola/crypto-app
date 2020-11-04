@@ -13,7 +13,7 @@
         <span class="currency">({{ $route.query.market }})</span>
         <span>{{ chartTitle }}</span>
       </div>
-      <div></div>
+      <div class="hide-mobile"></div>
     </div>
     <div class="container">
       <trading-vue
@@ -72,21 +72,10 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    console.log('to', to);
     next((vm) => {
-      console.log(vm);
       const { coin, symbol, market } = to.query;
       vm.fetchData(coin, symbol, market);
     });
-  },
-
-  beforeRouteUpdate(to, from, next) {
-    console.log('update');
-    /* this.post = null
-    getPost(to.params.id, (err, post) => {
-      this.setData(err, post)
-      next()
-    }) */
   },
 
   mounted() {
@@ -134,7 +123,7 @@ export default {
 .currency {
   text-transform: uppercase;
   padding-left: 5px;
-  padding-right: 10px;
+  padding-right: 5px;
 }
 
 .spinner {
@@ -145,5 +134,19 @@ export default {
   left: 0;
   margin: auto;
   z-index: 99;
+}
+
+@media screen and (max-width: 600px) {
+  .title {
+    text-align: right;
+  }
+
+  .header {
+    padding: 0 10px;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
 }
 </style>

@@ -12,10 +12,47 @@
         </div>
         <div class="content">
           <!-- <div class="portfolio-label">Portfolios</div> -->
-          <div v-for="p in portfolios" :key="p.id" class="portfolio-list-item">
+          <div
+            v-for="(p, idx) in portfolios"
+            :key="p.id"
+            class="portfolio-list-item"
+          >
             <div class="row">
               <span>Portfolio Name</span>
-              <span class="bold">{{ p.name }}</span>
+              <span v-if="inEditMode === p.id">
+                <form
+                  @submit="onEditPortfolio"
+                  class="portfolio-name-container"
+                >
+                  <span>
+                    <input v-model="editName" type="text" name="editname" />
+                  </span>
+                  <button type="submit" class="btn-reset save-button">
+                    <font-awesome-icon icon="check-circle" class="save-icon" />
+                  </button>
+                  <button
+                    type="button"
+                    @click="cancelEditMode"
+                    class="btn-reset cancel-button"
+                  >
+                    <font-awesome-icon
+                      icon="times-circle"
+                      class="cancel-icon"
+                    />
+                  </button>
+                </form>
+              </span>
+              <span v-else class="portfolio-name-container">
+                <span>
+                  {{ p.name }}
+                </span>
+                <button
+                  @click="() => setInEditMode(p.id, p.name, idx)"
+                  class="btn-reset edit-button"
+                >
+                  <font-awesome-icon icon="edit" class="edit-icon" />
+                </button>
+              </span>
             </div>
             <div class="holdings-row">
               <div class="holdings-left">{{ p.holdings.length }} holdings</div>
@@ -56,7 +93,9 @@ export default {
     return {
       portfolios: [],
       delPfClicked: '',
-      confirmDelPf: false,
+      inEditMode: '',
+      editName: '',
+      editIndex: null,
     };
   },
 
@@ -69,6 +108,28 @@ export default {
         const res = await axios.delete(`/api/portfolio/${id}`);
         this.portfolios = res.data;
       }
+    },
+
+    setInEditMode(id, name, idx) {
+      this.inEditMode = id;
+      this.editName = name;
+      this.editIndex = idx;
+    },
+
+    cancelEditMode() {
+      this.inEditMode = '';
+      this.editName = '';
+    },
+
+    async onEditPortfolio(e) {
+      e.preventDefault();
+
+      console.log('submit');
+      const res = await axios.put(`/api/portfolio/${this.inEditMode}`, {
+        name: this.editName,
+      });
+      this.portfolios[this.editIndex] = res.data;
+      this.inEditMode = false;
     },
   },
 
@@ -103,10 +164,41 @@ export default {
   padding: 30px 40px 40px;
 }
 
-.portfolio-label {
-  padding-bottom: 5px;
-  border-bottom: 1px solid #e1e4e8;
-  font-weight: 500;
+.portfolio-name-container {
+  display: flex;
+  align-items: center;
+}
+
+.edit-button {
+  padding: 0;
+  padding-left: 4px;
+  margin-left: 10px;
+}
+
+.edit-button:hover {
+  color: #00cdac;
+}
+
+.edit-icon {
+  font-size: 18px;
+}
+
+.save-icon {
+  font-size: 18px;
+  color: var(--iosLightGreen);
+}
+
+.cancel-icon {
+  font-size: 18px;
+  color: var(--iosRed);
+}
+
+.save-button,
+.cancel-button {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin-left: 10px;
 }
 
 .portfolio-list-item {
@@ -125,7 +217,7 @@ export default {
 
 .holdings-row {
   display: flex;
-  padding-top: 15px;
+  padding-top: 25px;
 }
 
 .holdings-left {
@@ -145,11 +237,13 @@ export default {
   flex-flow: row nowrap;
   align-items: center;
   padding-left: 15px;
+  padding-bottom: 10px;
   text-transform: uppercase;
+  font-size: 14px;
 }
 
 .img {
-  height: 25px;
+  height: 20px;
   margin-right: 3px;
 }
 

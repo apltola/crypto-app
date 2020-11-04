@@ -29,6 +29,11 @@ export default {
 </script>
 
 <style lang="scss">
+:root {
+  --iosLightGreen: #53d769;
+  --iosRed: #fc3d39;
+}
+
 body {
   margin: 0;
 }
@@ -72,6 +77,10 @@ body {
 
   a {
     text-decoration: none;
+  }
+
+  input {
+    font-family: inherit;
   }
 
   .card {
