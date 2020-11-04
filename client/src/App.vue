@@ -145,6 +145,10 @@ body {
     font-weight: bold;
   }
 
+  .show-mobile {
+    display: none;
+  }
+
   @media screen and (max-width: 600px) {
     h2 {
       font-size: 20px;
@@ -164,6 +168,14 @@ body {
 
     .submit {
       padding: 6px 40px;
+    }
+
+    .hide-mobile {
+      display: none;
+    }
+
+    .show-mobile {
+      display: initial;
     }
   }
 }

@@ -273,7 +273,7 @@ export default {
 
 @media screen and (max-width: 600px) {
   .content {
-    padding: 20px 20px 40px;
+    padding: 20px 10px 40px;
   }
   .delete-button:hover,
   .delete-button:active {

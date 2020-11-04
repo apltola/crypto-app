@@ -5,7 +5,9 @@
     <div class="header">
       <div>
         <router-link to="/dashboard">
-          <font-awesome-icon icon="long-arrow-alt-left" /> Back to Portfolios
+          <font-awesome-icon icon="long-arrow-alt-left" class="arrow-icon" />
+          <span class="hide-mobile">Back to Portfolios</span>
+          <span class="show-mobile">Back</span>
         </router-link>
       </div>
       <div class="title">
@@ -111,6 +113,10 @@ export default {
   text-align: left;
 }
 
+.arrow-icon {
+  margin-right: 10px;
+}
+
 .title {
   font-weight: 16px;
   font-weight: bold;
@@ -143,6 +149,10 @@ export default {
 
   .header {
     padding: 0 10px;
+  }
+
+  .header > div:nth-child(1) {
+    flex-grow: 0.5;
   }
 
   .hide-mobile {
