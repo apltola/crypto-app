@@ -46,7 +46,7 @@
                   type="number"
                   name="rate"
                   v-model="pricePerCoin"
-                  step=".01"
+                  step=".0000000001"
                 />
               </div>
               <div class="row">
@@ -58,10 +58,14 @@
                   step=".00000001"
                 />
               </div>
-              <!-- <div class="row">
+              <div class="row">
                 <label for="date">Date</label>
-                <input type="date" name="date" v-model="date" />
-              </div> -->
+                <!-- <input type="date" name="date" v-model="date" /> -->
+                <datepicker
+                  v-model="date"
+                  @selected="onDateSelected"
+                ></datepicker>
+              </div>
               <div class="btn-container">
                 <button
                   type="submit"
@@ -81,12 +85,17 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker';
 import geckoApi from '../api/coinGecko';
 import axios from 'axios';
 import router from '../router';
 
 export default {
   name: 'AddTransaction',
+
+  components: {
+    Datepicker,
+  },
 
   data() {
     return {
@@ -99,7 +108,7 @@ export default {
       pricePerCoin: '',
       currencies: [],
       selectedCurrency: '',
-      date: new Date().getTime(),
+      date: new Date(),
     };
   },
 
@@ -117,7 +126,7 @@ export default {
           boughtWith: this.boughtWith,
           soldWith: this.soldWith,
           pricePerCoin: this.pricePerCoin,
-          date: this.date,
+          date: this.date.getTime(),
         });
         router.push('/dashboard');
       } catch (error) {
@@ -136,6 +145,10 @@ export default {
       } else {
         return false;
       }
+    },
+
+    onDateSelected() {
+      console.log(this.date);
     },
   },
 

@@ -148,8 +148,8 @@ export default {
 }
 
 .clear {
-  background-color: #f3b75e;
-  border: 1px solid #f3b75e;
+  background-color: var(--maize);
+  border: 1px solid var(--maize);
   color: white;
   padding: 0 15px;
   border-radius: 3px;

@@ -31,7 +31,9 @@ export default {
 <style lang="scss">
 :root {
   --iosLightGreen: #53d769;
+  --caribbeanGreen: #00cdac;
   --iosRed: #fc3d39;
+  --maize: #ffcf56;
 }
 
 body {
