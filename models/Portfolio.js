@@ -127,7 +127,7 @@ portfolioSchema.methods.buildHoldingsHistory = async function () {
 
     if (trsForDate.length > 0) {
       trsForDate.forEach((tr, transIdex) => {
-        let quant = tr.type === 'buy' ? tr.quantity : -tr.quantity;
+        let quant = tr.quantity;
         const i = history[intervalIdx].holdings.findIndex(
           (h) => h.symbol === tr.coinSymbol
         );
