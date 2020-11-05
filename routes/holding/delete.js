@@ -14,9 +14,9 @@ router.delete(
       holdings: portfolio.holdings.filter((holding) => {
         return holding.id !== req.params.holdingId;
       }),
-      transactions: portfolio.transactions.filter((trs) => {
+      /* transactions: portfolio.transactions.filter((trs) => {
         return trs.coinSymbol !== req.params.symbol;
-      }),
+      }), */
     });
     await portfolio.save();
 

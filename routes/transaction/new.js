@@ -49,7 +49,7 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
   }
 
   // compute valuehistory...
-  let value;
+  /* let value;
   const transactedWith = boughtWith || soldWith;
   if (transactedWith.toLowerCase() === portfolio.defaultFiat) {
     value = pricePerCoin * quantity;
@@ -74,8 +74,9 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
   const sorted = portfolio.valueHistory.sort((a, b) => {
     return a[0] - b[0];
   });
-  portfolio.valueHistory = sorted;
+  portfolio.valueHistory = sorted; */
   await portfolio.save();
+  portfolio.buildHoldingsHistory();
 
   res.send(portfolio);
 });
