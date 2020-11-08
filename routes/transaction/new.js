@@ -76,7 +76,7 @@ router.post('/api/transaction', requireAuth, async (req, res) => {
   });
   portfolio.valueHistory = sorted; */
   await portfolio.save();
-  portfolio.buildHoldingsHistory();
+  //portfolio.buildHoldingsHistory();
 
   res.send(portfolio);
 });

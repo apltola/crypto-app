@@ -18,6 +18,7 @@ const { deleteUserRouter } = require('./routes/auth/delete');
 const { deletePortfolioRouter } = require('./routes/portfolio/delete');
 const { dailyPriceRouter } = require('./routes/cryptoPrice/daily');
 const { editPortfolioRouter } = require('./routes/portfolio/edit');
+const { pfValueHistoryRouter } = require('./routes/portfolio/valueHistory');
 
 const app = express();
 app.use(bodyParser.json());
@@ -44,6 +45,7 @@ app.use(createPortfolioRouter);
 app.use(showPortfolioRouter);
 app.use(editPortfolioRouter);
 app.use(deletePortfolioRouter);
+app.use(pfValueHistoryRouter);
 app.use(createTransactionRouter);
 app.use(createHoldingRouter);
 app.use(deleteHoldingRouter);

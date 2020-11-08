@@ -112,7 +112,7 @@ portfolioSchema.methods.buildHoldingsHistory = async function () {
     start: sortedTransactions[0].date,
     end: new Date().getTime(),
   });
-  console.log('interval -> ', interval);
+  //console.log('interval -> ', interval);
 
   let history = [];
   interval.forEach((intervalDate, intervalIdx) => {
@@ -121,7 +121,7 @@ portfolioSchema.methods.buildHoldingsHistory = async function () {
     );
 
     history.push({
-      date: intervalDate,
+      date: intervalDate.getTime(),
       holdings: [],
     });
 
