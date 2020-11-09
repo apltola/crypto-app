@@ -19,6 +19,7 @@ import axios from 'axios';
 import VueApexCharts from 'vue-apexcharts';
 import format from 'date-fns/format';
 import { Circle as CricleSpin } from 'vue-loading-spinner';
+import { isMobile } from 'mobile-device-detect';
 
 export default {
   name: 'PortfolioValue',
@@ -33,6 +34,9 @@ export default {
         chart: {
           id: 'area-datetime',
           type: 'area',
+          toolbar: {
+            show: !isMobile,
+          },
         },
         zoom: {
           autoScaleYaxis: true,
@@ -45,7 +49,7 @@ export default {
         },
         xaxis: {
           type: 'datetime',
-          tickAmount: 6,
+          //tickAmount: 8,
           labels: {
             hideOverlappingLabels: true,
             rotate: 0,
