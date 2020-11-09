@@ -14,6 +14,12 @@
         </div>
       </div>
       <div class="header-right">
+        <router-link
+          :to="{ path: `/chart/portfolio/${portfolio.id}` }"
+          class="chart-link"
+        >
+          <font-awesome-icon icon="chart-bar" class="chart-icon" />
+        </router-link>
         <button @click="handleToggle" class="add-button">
           {{ view === 'addCrypto' ? 'View Portfolio' : 'Add Crypto' }}
         </button>
@@ -188,11 +194,6 @@ export default {
 </script>
 
 <style scoped>
-.portfolio {
-  /* margin-top: 30px;
-  margin-bottom: 30px; */
-}
-
 .holdings {
   padding: 20px 30px 45px;
 }
@@ -200,18 +201,22 @@ export default {
 .header-right {
   flex: 1;
   text-align: right;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 .add-button {
   box-shadow: none;
   background: transparent;
   color: white;
-  font-size: 16px;
   font-weight: 500;
   border: 2px solid white;
-  border-radius: 15px;
+  border-radius: 10px;
   outline: none;
   padding: 2px 10px;
+  margin-left: 20px;
 }
 
 .add-button:hover {
@@ -265,6 +270,14 @@ export default {
 .container {
   position: relative;
   min-height: 250px;
+}
+
+.chart-link {
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  padding-top: 2px;
 }
 
 @media screen and (max-width: 600px) {

@@ -17,6 +17,8 @@ import {
   faEdit,
   faCheckCircle,
   faTimesCircle,
+  faChartArea,
+  faChartBar,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -34,6 +36,8 @@ library.add([
   faEdit,
   faCheckCircle,
   faTimesCircle,
+  faChartArea,
+  faChartBar,
 ]);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

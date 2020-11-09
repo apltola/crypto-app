@@ -9,7 +9,7 @@
             <font-awesome-icon icon="cog" class="icon" />
           </button>
         </router-link>
-        <router-link to="/new-portfolio">
+        <router-link to="/portfolio/add">
           <button class="button">
             <font-awesome-icon icon="plus-square" class="icon" />
           </button>
