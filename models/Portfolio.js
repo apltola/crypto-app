@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const eachDayOfInterval = require('date-fns/eachDayOfInterval');
 const isSameDay = require('date-fns/isSameDay');
-const { tr } = require('date-fns/locale');
 
 const holdingSchema = new mongoose.Schema(
   {

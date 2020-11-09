@@ -38,7 +38,7 @@ const routes = [
   },
   {
     path: '/chart/portfolio/:id',
-    name: 'CryptoChart',
+    name: 'PortfolioValue',
     component: () => import('../views/PortfolioValue.vue'),
   },
   {

@@ -68,11 +68,8 @@ export default {
   },
 
   async created() {
-    /* if (this.$store.state.currentUser) {
-      //fetch portfolios for user
-    } */
     const res = await axios.get('/api/portfolio');
-    console.log(res.data);
+    //console.log(res.data);
     this.portfolios = res.data;
     if (res.data.length === 0) {
       this.noPortfoliosMessage = 'No portfolios';

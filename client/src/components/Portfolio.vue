@@ -49,8 +49,8 @@
             :key="holding.id"
             :holding="holding"
             :rate="formatPrice(holding)"
-            :rateChange="getCryptoRateChange(holding.coinName)"
             :holdingValue="formatHolding(holding)"
+            :rateChange="getCryptoRateChange(holding.coinSymbol)"
             :portfolioId="portfolio.id"
             :currency="currency"
             @delete-holding="deleteHolding"
@@ -119,10 +119,10 @@ export default {
 
       let sum = 0;
       this.portfolio.holdings.forEach((holding) => {
-        const { coinName } = holding;
-        if (this.coinPrices[coinName]) {
+        const { coinSymbol } = holding;
+        if (this.coinPrices[coinSymbol]) {
           sum =
-            sum + this.coinPrices[coinName][this.currency] * holding.quantity;
+            sum + this.coinPrices[coinSymbol][this.currency] * holding.quantity;
         }
       });
       sum = sum.toFixed(2);
@@ -131,32 +131,32 @@ export default {
       return `${sum} ${getCurrencySymbol(this.currency)}`;
     },
 
-    getCryptoRateChange(name) {
-      if (!this.coinPrices || !this.coinPrices[name]) {
+    getCryptoRateChange(symbol) {
+      if (!this.coinPrices || !this.coinPrices[symbol]) {
         return '';
       }
 
-      return this.coinPrices[name][`${this.currency}_24h_change`];
+      return this.coinPrices[symbol][`${this.currency}_24h_change`];
     },
 
     formatPrice(holding) {
-      if (!this.coinPrices || !this.coinPrices[holding.coinName]) {
+      if (!this.coinPrices || !this.coinPrices[holding.coinSymbol]) {
         return '';
       }
 
       let price = formatNumber(
-        this.coinPrices[holding.coinName][this.currency]
+        this.coinPrices[holding.coinSymbol][this.currency]
       );
       return `${price} ${getCurrencySymbol(this.currency)}`;
     },
 
     formatHolding(holding) {
-      if (!this.coinPrices || !this.coinPrices[holding.coinName]) {
+      if (!this.coinPrices || !this.coinPrices[holding.coinSymbol]) {
         return '';
       }
 
-      const { quantity, coinName } = holding;
-      let value = this.coinPrices[coinName][this.currency] * quantity;
+      const { quantity, coinName, coinSymbol } = holding;
+      let value = this.coinPrices[coinSymbol][this.currency] * quantity;
       //this.portfolioValue = this.portfolioValue + value;
       value = value.toFixed(2);
       value = formatNumber(value);
@@ -167,13 +167,9 @@ export default {
       let coins = '';
 
       this.portfolio.holdings.forEach((holding) => {
-        coins = coins + `${holding.coinName},`;
+        coins = coins + `${holding.coinSymbol},`;
       });
-
-      coins = encodeURIComponent(coins);
-
-      const url = `/simple/price?ids=${coins}&vs_currencies=eur,usd&include_24hr_change=true`;
-      const res = await geckoApi.get(url);
+      const res = await axios.get(`/api/price/current?symbols=${coins}`);
       this.coinPrices = res.data;
     },
   },
@@ -276,7 +272,7 @@ export default {
   color: white;
   display: flex;
   align-items: center;
-  font-size: 22px;
+  font-size: 24px;
   padding-top: 2px;
 }
 

@@ -136,7 +136,7 @@ export default {
 .wrapper {
   position: relative;
   flex: 1;
-  max-width: 1000px;
+  /* max-width: 1000px; */
 }
 
 .title {

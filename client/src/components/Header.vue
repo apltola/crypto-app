@@ -121,7 +121,7 @@ export default {
 }
 
 .header-link {
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
 .show-mobile {
@@ -198,22 +198,18 @@ export default {
   }
 
   .menu-icon {
-    font-size: 20px;
-    color: white;
+    font-size: 24px;
+    color: black;
   }
 
   .menu-button {
-    background-image: linear-gradient(
-      -225deg,
-      #3d4e81 0%,
-      #5753c9 48%,
-      #6e7ff3 100%
-    );
+    background: transparent;
     box-shadow: none;
     outline: none;
-    padding: 5px 8px;
     border: none;
     border-radius: 0;
+    display: flex;
+    align-items: center;
   }
 }
 </style>

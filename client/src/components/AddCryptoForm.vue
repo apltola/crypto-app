@@ -22,11 +22,10 @@
         <div v-if="error">
           {{ error }}
         </div>
-        <div v-if="success">
+        <div v-if="success" class="bold">
           {{ success }}
         </div>
       </div>
-      <!-- {{JSON.stringify(result, null, 2)}} -->
     </div>
   </transition>
 </template>
