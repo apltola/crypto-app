@@ -9,7 +9,7 @@
           placeholder="Search coin name"
           class="search-input"
         />
-        <button type="submit" class="search">Search</button>
+        <button type="submit" class="search" :disabled="!search">Search</button>
         <button type="button" @click="clearSearch" class="clear">Clear</button>
       </form>
       <div class="results">

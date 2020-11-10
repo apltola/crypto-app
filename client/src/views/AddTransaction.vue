@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Add {{ transactionType }} Transaction</h2>
-    <div class="container">
+    <div class="container" :style="{ paddingBottom: mobile ? 0 : '100px' }">
       <transition appear name="slide">
         <div class="card" style="max-width: 500px">
           <div class="card-header">
