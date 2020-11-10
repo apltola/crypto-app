@@ -71,15 +71,14 @@ body {
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    /* padding: 20px; */
+    padding-bottom: 80px;
   }
 
   .app-footer {
     border-top: 1.5px solid #e1e4e8;
-    /* background: #f5f8ff; */
     padding: 20px;
     background-color: white;
-    margin-top: 80px;
+    /* margin-top: 80px; */
   }
 
   button,
