@@ -98,16 +98,22 @@ export default {
 
 .formi {
   min-width: 230px;
-  border: 1px solid #e1e4e8;
+  /* border: 1px solid #e1e4e8; */
   text-align: left;
   padding: 25px 30px 30px 30px;
-  border-radius: 6px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: var(--cardShadow);
 
   label,
   input,
   button {
     display: block;
     font-size: 16px;
+  }
+
+  label {
+    font-weight: 500;
   }
 
   input {

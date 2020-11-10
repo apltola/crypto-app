@@ -2,7 +2,7 @@
   <div class="container">
     <div class="wrapper">
       <CricleSpin v-if="loading" :size="'80px'" />
-      <h2 class="title">{{ portfolioName }} Value Progression</h2>
+      <h2 class="title">{{ portfolioName }}{{ renderCurrentValue() }}</h2>
       <apexcharts
         :options="chartOptions"
         :series="series"
@@ -20,6 +20,7 @@ import VueApexCharts from 'vue-apexcharts';
 import format from 'date-fns/format';
 import { Circle as CricleSpin } from 'vue-loading-spinner';
 import { isMobile } from 'mobile-device-detect';
+import { formatNumber } from '../util/portfolio';
 
 export default {
   name: 'PortfolioValue',
@@ -108,6 +109,23 @@ export default {
         ];
       } catch (error) {
         console.log(error);
+      }
+    },
+
+    renderCurrentValue() {
+      const { data } = this.series[0];
+
+      if (data.length > 0) {
+        const lastIdx = data.length - 1;
+        let val = data[lastIdx][1].toString();
+        if (val.length >= 4) {
+          let slicePoint = val.length - 3;
+          return `: ${val.slice(0, slicePoint)} ${val.slice(
+            slicePoint,
+            val.length
+          )} €`;
+        }
+        return `: ${val} €`;
       }
     },
   },

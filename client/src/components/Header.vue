@@ -11,7 +11,11 @@
           <router-link to="/dashboard" class="header-link">
             View Portfolios
           </router-link>
-          <button @click="logout" class="logout-button">
+          <button
+            @click="logout"
+            class="logout-button"
+            :style="{ color: $route.path === '/' ? 'white' : 'inherit' }"
+          >
             Logout {{ this.$store.state.currentUser.username }}
           </button>
         </div>
@@ -26,7 +30,11 @@
       </div>
       <div class="show-mobile">
         <button class="menu-button" @click="showMenu = !showMenu">
-          <font-awesome-icon icon="bars" class="menu-icon" />
+          <font-awesome-icon
+            icon="bars"
+            class="menu-icon"
+            :style="{ color: getColor() }"
+          />
         </button>
       </div>
     </div>
@@ -79,6 +87,15 @@ export default {
     async logout() {
       this.showMenu = false;
       await this.$store.dispatch('logout');
+    },
+
+    getColor() {
+      const { path } = this.$route;
+      if (path === '/' || path.includes('/auth')) {
+        return 'white';
+      } else {
+        return 'black';
+      }
     },
   },
 };
@@ -199,7 +216,6 @@ export default {
 
   .menu-icon {
     font-size: 24px;
-    color: black;
   }
 
   .menu-button {

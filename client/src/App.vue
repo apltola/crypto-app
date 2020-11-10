@@ -1,14 +1,11 @@
 <template>
   <div id="app">
-    <Header />
+    <Header :style="{ color: getColor() }" />
     <main class="app-content">
       <router-view />
     </main>
     <footer class="app-footer">
       <div>© allu 2020</div>
-      <!-- <div>
-        {{ JSON.stringify(this.$store.state.currentUser) }}
-      </div> -->
     </footer>
   </div>
 </template>
@@ -16,13 +13,28 @@
 <script>
 import Header from './components/Header.vue';
 import axios from 'axios';
+/* import router from './router';
+
+console.log(router.currentRoute.path); */
 
 export default {
   components: {
     Header,
   },
 
+  methods: {
+    getColor() {
+      const { path } = this.$route;
+      if (path === '/' || path.includes('/auth')) {
+        return 'white';
+      } else {
+        return '#2c3e50';
+      }
+    },
+  },
+
   async created() {
+    console.log(this.$route);
     await this.$store.dispatch('fetchCurrentUser');
   },
 };
@@ -30,10 +42,13 @@ export default {
 
 <style lang="scss">
 :root {
+  --borderGrey: #e1e4e8;
   --iosLightGreen: #53d769;
   --caribbeanGreen: #00cdac;
   --iosRed: #fc3d39;
   --maize: #ffcf56;
+  --cardShadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+    0 15px 40px rgba(166, 173, 201, 0.2);
 }
 
 body {
@@ -51,14 +66,20 @@ body {
   min-height: 100vh;
 
   .app-content {
+    overflow: hidden;
     flex: 1;
-    padding: 20px 20px 80px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* padding: 20px; */
   }
 
   .app-footer {
-    border: 1.5px solid #e1e4e8;
+    border-top: 1.5px solid #e1e4e8;
     /* background: #f5f8ff; */
     padding: 20px;
+    background-color: white;
+    margin-top: 80px;
   }
 
   button,
@@ -94,6 +115,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
       0 15px 40px rgba(166, 173, 201, 0.2);
+    background-color: white;
   }
 
   .card-header {
@@ -157,7 +179,7 @@ body {
     }
 
     .app-content {
-      padding: 20px 5px 80px;
+      padding: 20px 5px 0;
     }
 
     .card {
