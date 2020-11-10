@@ -112,6 +112,8 @@ body {
     margin-right: auto;
     text-align: left;
     border-radius: 10px;
+    -webkit-box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+      0 15px 40px rgba(166, 173, 201, 0.2);
     box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
       0 15px 40px rgba(166, 173, 201, 0.2);
     background-color: white;
@@ -178,7 +180,7 @@ body {
     }
 
     .app-content {
-      padding: 20px 5px 0;
+      padding: 20px 5px 80px;
     }
 
     .card {

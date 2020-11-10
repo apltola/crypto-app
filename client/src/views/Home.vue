@@ -3,7 +3,10 @@
     <div class="bg-diagonal"></div>
     <div class="container">
       <h1 class="title">Track Your Crypto Portfolio</h1>
-      <div class="subtitle">
+      <div v-if="$store.state.currentUser" class="subtitle">
+        Signed in as {{ $store.state.currentUser.username }}
+      </div>
+      <div v-else class="subtitle">
         <router-link to="/auth/register" class="register-link">
           Create Account
         </router-link>
@@ -112,6 +115,7 @@ export default {
 .row-bottom {
   align-items: flex-start;
   padding-top: 0;
+  padding-bottom: 0;
 }
 
 .textbox {
@@ -135,7 +139,7 @@ export default {
 
 @media screen and (max-width: 600px) {
   .bg-diagonal {
-    top: -450px;
+    top: -420px;
   }
 
   .title {
