@@ -2,10 +2,10 @@ const express = require('express');
 const requireAuth = require('../../middlewares/requireAuth');
 const { Portfolio } = require('../../models/Portfolio');
 const isSameDay = require('date-fns/isSameDay');
-const format = require('date-fns/format');
 const baseUrl = 'https://min-api.cryptocompare.com/data/v2/histoday';
-const key = 'a26f87cf257c60bb469cb878499a30995db5c007b7773d42a2ce49206fe49c27';
 const axios = require('axios');
+const keys = require('../../keys');
+
 const router = express.Router();
 
 router.get('/api/portfolio/:id/valuehistory', requireAuth, async (req, res) => {
@@ -29,7 +29,7 @@ router.get('/api/portfolio/:id/valuehistory', requireAuth, async (req, res) => {
       return new Promise((resolve, reject) => {
         return resolve(
           axios.get(
-            `${baseUrl}?fsym=${coin}&tsym=eur&limit=${limit}&api_key=${key}`
+            `${baseUrl}?fsym=${coin}&tsym=eur&limit=${limit}&api_key=${keys.CRYPTOCOMPARE_KEY}`
           )
         );
       });
@@ -56,8 +56,6 @@ router.get('/api/portfolio/:id/valuehistory', requireAuth, async (req, res) => {
   const priceData = await getCryptoPriceData(portfolio.holdingsHistory.length);
 
   const valueHistory = [];
-  const categories = [];
-  const data = [];
   portfolio.holdingsHistory.forEach((historyItem, historyIdx) => {
     // joka päivälle pitää laskee cryptoilta valuet ja ynnätä ne
     let valueSum = 0;
@@ -76,17 +74,11 @@ router.get('/api/portfolio/:id/valuehistory', requireAuth, async (req, res) => {
       new Date(historyItem.date).getTime(),
       valueSum.toFixed(0),
     ]);
-    //categories.push(new Date(historyItem.date));
-    //categories.push(format(historyItem.date, 'MMM dd'));
-    //data.push(valueSum.toFixed(0));
   });
 
-  //res.send({ categories, data });
   res.send({ data: valueHistory, name: portfolio.name });
 });
 
 module.exports = {
   pfValueHistoryRouter: router,
 };
-
-//5fa2b41e5e63bd638e4e1364
