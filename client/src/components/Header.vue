@@ -2,7 +2,7 @@
   <header class="app-header">
     <div class="header-left">
       <router-link to="/" class="brand">
-        crypto.app
+        💰 MoonBag.app
       </router-link>
     </div>
     <div class="header-right">
